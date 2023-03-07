@@ -1,0 +1,22 @@
+{{license_header}}
+$version: "2"
+namespace OpenSearch
+
+// TO-DO: Fill in API Reference URL
+@externalDocumentation(
+  "API Reference": ""
+)
+
+{{#operations}}
+@vendorExtensions(
+  "x-operation-group": "{{operation_group}}",
+  "x-version-added": "1.0"
+)
+@http(method: "{{method}}", uri: "{{uri}}")
+@documentation("{{description}}")
+operation {{operation_name}} {
+  input: {{input_name}},
+  output: {{output_name}}
+}
+
+{{/operations}}
