@@ -41,10 +41,8 @@ class Translator
   end
 
   def generate_params_files
-    puts ParamsFileGenerator.new(@params.simples, :simples).render
-    # puts ParamsFileGenerator.new(@params.lists, :lists).render
-    # puts ParamsFileGenerator.new(@params.times, :times).render
-    # puts ParamsFileGenerator.new(@params.enums, :enums).render
-    # puts ParamsFileGenerator.new(@params.unions, :unions).render
+    # puts ParamsFileGenerator.new(@params.filter_by_type(:integer)).render
+    # puts ParamsFileGenerator.new(@params.filter_by_type(:string)).render
+    puts ParamsFileGenerator.new(@params.filter_by_type(:boolean)).render
   end
 end

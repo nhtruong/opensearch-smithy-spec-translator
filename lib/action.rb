@@ -13,6 +13,7 @@ require 'active_support/all'
 require 'ostruct'
 require 'json'
 require_relative 'operation'
+require_relative 'parameter'
 
 # API Action
 class Action
@@ -39,6 +40,6 @@ class Action
   end
 
   def query_params
-    spec.params.to_h
+    @query_params ||= spec.params.to_h.map { |name, spec| Parameter.new name, spec }
   end
 end

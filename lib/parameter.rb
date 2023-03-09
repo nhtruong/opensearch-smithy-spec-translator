@@ -14,17 +14,29 @@ require_relative 'action'
 
 # Generator for operations.smithy
 class Parameter
+  attr_reader :spec
 
   # @param [String] name
   # @param [OpenStruct] spec
   def initialize(name, spec)
+    @pattern = '^([0-9]+)(?:d|h|m|s|ms|micros|nanos)$' if spec.type == 'time'
+    spec.type = 'string' if %w[number|string time].include?(spec.type)
     @name = name
     @spec = spec
-    @deprecation = @spec.deprecated
+    @deprecation = spec.deprecated
+  end
+
+  def category
+    @category ||= case @spec.type
+                  when 'list' then :lists
+                  when 'enum' then :enums
+                  when 'string', 'integer', 'boolean' then :simples
+                  else raise "Unrecognized Data Type: #{@spec.type}"
+                  end
   end
 
   def smithy_type
-    @spec.type.capitalize
+    @spec.type
   end
 
   def name
@@ -36,9 +48,16 @@ class Parameter
       deprecated: (!!@deprecation unless @deprecation.nil?),
       deprecation_info:,
       documentation: @spec.description,
+      pattern: @pattern,
       default: @spec.default
       # TODO: Extract default from description
     }
+  end
+
+  def options
+    return unless @spec.options
+
+    @spec.options.map { |option| { key: option.upcase, value: option } }
   end
 
   private

@@ -5,6 +5,7 @@ namespace OpenSearch
 {{#simples}}
 {{>params.traits}}
 {{smithy_type}} {{name}}
+
 {{/simples}}
 
 {{#lists}}
@@ -14,12 +15,6 @@ list {{name}} {
 }
 {{/lists}}
 
-{{#times}}
-{{>params.traits}}
-@pattern("^([0-9]+)(?:d|h|m|s|ms|micros|nanos)$")
-string {{name}}
-{{/times}}
-
 {{#enums}}
 {{>params.traits}}
 enum {{name}} {
@@ -28,11 +23,3 @@ enum {{name}} {
   {{/options}}
 }
 {{/enums}}
-
-{{#unions}}
-{{>params.traits}}
-union {{name}} {
-  integer: Integer,
-  string: String
-}
-{{/unions}}

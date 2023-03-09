@@ -15,36 +15,28 @@ require 'active_support/all'
 
 # Repository for shared params
 class ParamsRepository
-  attr_reader :repos
-
-  delegate :simples, :lists, :times, :enums, :unions, to: :repos
+  attr_reader :repo
 
   def initialize
-    @repos = OpenStruct.new(
-      simples: {},
-      lists: {},
-      times: {},
-      enums: {},
-      unions: {}
-    )
+    @repo = {}
   end
 
+  # @param [Array<Parameter>] params
   def add_many(params)
-    params.each { |name, info| add_one name, info }
+    params.each { |param| add_one param }
   end
 
-  def add_one(name, info)
-    repo =  case info.type
-            when 'string', 'integer', 'boolean' then simples
-            when 'list' then lists
-            when 'time' then times
-            when 'enum' then enums
-            when 'number|string' then unions
-            else raise "Unrecognized Data Type: #{info.type}"
-            end
+  # @param [Parameter] param
+  def add_one(param)
+    name = param.name
+    spec = param.spec
     # TODO: Handle Collisions
-    # raise collision_message(repo, name, info) if repo.include?(name) && repo[name] != info
-    repo[name] = info
+    # raise collision_message(@repo, name, spec) if @repo.include?(name) && @repo[name].spec != spec
+    @repo[name] = param
+  end
+
+  def filter_by_type(type)
+    @repo.values.select { |param| param.spec.type == type.to_s }
   end
 
   private

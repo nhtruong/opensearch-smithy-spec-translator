@@ -16,21 +16,37 @@ require_relative 'parameter'
 class ParamsFileGenerator < BaseGenerator
   self.template_file = './templates/params.mustache'
 
-  # @param [Hash] params
+  # @param [Array<Parameter>] params
   # @param [Symbol] category
-  def initialize(params, category)
+  def initialize(params, category = nil)
     @params = params
-    @category = category
+    @category = category || @params.first&.category
     super({})
   end
 
   def simples
     return unless @category == :simples
-    @params.map do |name, spec|
-      param = Parameter.new name, spec
+    @params.map do |param|
       param.traits.merge({
-        smithy_type: param.smithy_type,
-        name: param.name
+        name: param.name,
+        smithy_type: param.smithy_type
+      })
+    end
+  end
+
+  def lists
+    return unless @category == :lists
+    @params.map do |param|
+      param.traits.merge({ name: param.name })
+    end
+  end
+
+  def enums
+    return unless @category == :enums
+    @params.map do |param|
+      param.traits.merge({
+        name: param.name,
+        options: param.options
       })
     end
   end
