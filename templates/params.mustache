@@ -1,0 +1,38 @@
+{{license_header}}
+$version: "2"
+namespace OpenSearch
+
+{{#simples}}
+{{>params.traits}}
+{{smithy_type}} {{name}}
+{{/simples}}
+
+{{#lists}}
+{{>params.traits}}
+list {{name}} {
+  member: String
+}
+{{/lists}}
+
+{{#times}}
+{{>params.traits}}
+@pattern("^([0-9]+)(?:d|h|m|s|ms|micros|nanos)$")
+string {{name}}
+{{/times}}
+
+{{#enums}}
+{{>params.traits}}
+enum {{name}} {
+  {{#options}}
+  {{key}} = "{{value}}"
+  {{/options}}
+}
+{{/enums}}
+
+{{#integer_strings}}
+{{>params.traits}}
+union {{name}} {
+  integer: Integer,
+  string: String
+}
+{{/integer_strings}}
