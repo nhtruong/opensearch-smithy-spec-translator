@@ -38,5 +38,7 @@ class Action
     spec.documentation.description
   end
 
-  def query_params; end
+  def query_params
+    spec.params.to_h
+  end
 end

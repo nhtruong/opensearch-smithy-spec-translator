@@ -29,10 +29,10 @@ enum {{name}} {
 }
 {{/enums}}
 
-{{#integer_strings}}
+{{#unions}}
 {{>params.traits}}
 union {{name}} {
   integer: Integer,
   string: String
 }
-{{/integer_strings}}
+{{/unions}}

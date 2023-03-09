@@ -1,4 +1,6 @@
-require_relative 'lib/operations_file_generator'
+require_relative 'lib/translator'
+require 'awesome_print'
 
-gen = OperationsFileGenerator.new('json_schema_spec/api/cat.health.json')
-puts gen.render
+translator = Translator.new('json_schema_spec/api', 'output')
+translator.translate(['bulk'])
+

@@ -1,9 +1,9 @@
 {{#deprecated}}@deprecated{{/deprecated}}
 {{#deprecation_info}}
 @vendorExtensions(
-  "x-deprecation-message": "{{deprecation_mesage}}",
-  "x-version-deprecated": "{{deprecation_version}}"
+  "x-deprecation-message": "{{{deprecation_message}}}",
+  "x-version-deprecated": "{{{deprecation_version}}}"
 )
 {{/deprecation_info}}
-{{#documentation}}@documentation("{{documentation}}"){{/documentation}}
+{{#documentation}}@documentation("{{{documentation}}}"){{/documentation}}
 {{#default}}@default({{default}}){{/default}}

@@ -10,15 +10,28 @@
 # frozen_string_literal: true
 
 require_relative 'base_generator'
-require_relative 'action'
+require_relative 'parameter'
 
 # Generator for operations.smithy
 class ParamsFileGenerator < BaseGenerator
   self.template_file = './templates/params.mustache'
 
-  # @param [Array<OpenStruct>] params
-  def initialize(params)
+  # @param [Hash] params
+  # @param [Symbol] category
+  def initialize(params, category)
     @params = params
-    super
+    @category = category
+    super({})
+  end
+
+  def simples
+    return unless @category == :simples
+    @params.map do |name, spec|
+      param = Parameter.new name, spec
+      param.traits.merge({
+        smithy_type: param.smithy_type,
+        name: param.name
+      })
+    end
   end
 end

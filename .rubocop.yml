@@ -15,3 +15,7 @@ Metrics/AbcSize:
   Enabled: false
 Style/OpenStructUse:
   Enabled: false
+Layout/FirstHashElementIndentation:
+  Enabled: false
+Style/DoubleNegation:
+  Enabled: false
