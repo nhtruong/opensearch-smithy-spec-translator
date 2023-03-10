@@ -46,8 +46,8 @@ class Translator
     folder = @output.join('model')
     dump folder, 'common_integers.smithy', ParamsFileGenerator.new(@params.filter_by_type(:integer), :simple)
     dump folder, 'common_strings.smithy',  ParamsFileGenerator.new(@params.filter_by_type(:string), :simple)
-    dump folder, 'common_boolean.smithy',  ParamsFileGenerator.new(@params.filter_by_type(:boolean), :simple)
-    dump folder, 'common_list.smithy',     ParamsFileGenerator.new(@params.filter_by_type(:list), :list)
+    dump folder, 'common_booleans.smithy', ParamsFileGenerator.new(@params.filter_by_type(:boolean), :simple)
+    dump folder, 'common_lists.smithy',    ParamsFileGenerator.new(@params.filter_by_type(:list), :list)
     dump folder, 'common_enums_.smithy',   ParamsFileGenerator.new(@params.filter_by_type(:enum), :enum)
   end
 
