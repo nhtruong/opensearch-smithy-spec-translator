@@ -41,12 +41,12 @@ class Parameter
 
   def traits
     {
+      default: default_value,
+      with_default: !default.nil?,
       deprecated: (!!@deprecation unless @deprecation.nil?),
       deprecation_info:,
       documentation: spec.description.gsub('"', "'"),
-      pattern: @pattern,
-      default: default_value
-      # TODO: Extract default from description
+      pattern: @pattern
     }
   end
 
@@ -59,11 +59,20 @@ class Parameter
   private
 
   def default_value
-    if default.nil? && description.downcase.include?('default')
-      puts description
-      puts description.match?(/.*\(default: (\S*)\).*/)
-    end
-    default.is_a?(String) ? "\"#{default}\"" : default
+    capture_default
+    type.in?(%w[string enum]) ? "\"#{default}\"" : default
+  end
+
+  def capture_default
+    return unless default.nil? && description.downcase.include?('default')
+    return if type == 'list'
+    return spec.default = '1' if description.downcase.include?('defaults to 1')
+    return unless description.match?(/.* \(default: (\S*)\).*/)
+    value = description[/\(default: (\S*)\)/, 1]
+    return if type == 'integer' && value.to_i.zero? && value != '0'
+    return if type == 'boolean' && %w[true false].exclude?(value)
+    spec.default = value
+    spec.description = description.gsub(/( \(default: \S*\))/, '')
   end
 
   def deprecation_info

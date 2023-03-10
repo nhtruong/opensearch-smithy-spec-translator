@@ -29,7 +29,8 @@
     "params":{
       "copy_settings": {
         "type" : "boolean",
-        "description" : "whether or not to copy settings from the source index (defaults to false)"
+        "default": false,
+        "description" : "whether or not to copy settings from the source index."
       },
       "timeout": {
         "type" : "time",
