@@ -28,6 +28,7 @@ class Translator
                   groups.map { |basename| @input.join "#{basename}.json" }
                 end
     generate_operations_files pathnames
+    generate_structures_files(pathnames)
     generate_params_files
   end
 
@@ -42,16 +43,19 @@ class Translator
     end
   end
 
+  def generate_structures_files(pathnames); end
+
   def generate_params_files
     folder = @output.join('model')
     dump folder, 'common_integers.smithy', ParamsFileGenerator.new(@params.filter_by_type(:integer), :simple)
     dump folder, 'common_strings.smithy',  ParamsFileGenerator.new(@params.filter_by_type(:string), :simple)
     dump folder, 'common_booleans.smithy', ParamsFileGenerator.new(@params.filter_by_type(:boolean), :simple)
     dump folder, 'common_lists.smithy',    ParamsFileGenerator.new(@params.filter_by_type(:list), :list)
-    dump folder, 'common_enums_.smithy',   ParamsFileGenerator.new(@params.filter_by_type(:enum), :enum)
+    dump folder, 'common_enums.smithy',   ParamsFileGenerator.new(@params.filter_by_type(:enum), :enum)
   end
 
   def dump(folder, relative_path, generator)
+    # TODO: Handle Collisions with existing files
     path = folder.join(relative_path)
     path.parent.mkpath
     path.write generator.render
