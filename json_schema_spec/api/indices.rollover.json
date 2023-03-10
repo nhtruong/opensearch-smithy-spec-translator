@@ -44,7 +44,8 @@
       },
       "dry_run":{
         "type":"boolean",
-        "description":"If set to true the rollover action will only be validated but not actually performed even if a condition matches. The default is false"
+        "default": false,
+        "description":"If set to true the rollover action will only be validated but not actually performed even if a condition matches."
       },
       "master_timeout":{
         "type":"time",

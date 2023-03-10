@@ -36,7 +36,8 @@
       },
       "wait_if_ongoing":{
         "type":"boolean",
-        "description":"If set to true the flush operation will block until the flush can be executed if another flush operation is already executing. The default is true. If set to false the flush will be skipped iff if another flush operation is already running."
+        "default": true,
+        "description":"If set to true the flush operation will block until the flush can be executed if another flush operation is already executing. If set to false the flush will be skipped iff if another flush operation is already running."
       },
       "ignore_unavailable":{
         "type":"boolean",

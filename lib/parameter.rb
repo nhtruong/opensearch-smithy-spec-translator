@@ -15,7 +15,8 @@ require_relative 'action'
 # Generator for operations.smithy
 class Parameter
   attr_reader :spec, :name
-  delegate :type, to: :spec
+
+  delegate :type, :description, :default, to: :spec
 
   # @param [String] name
   # @param [OpenStruct] spec
@@ -31,7 +32,7 @@ class Parameter
 
   def smithy_type
     return 'string' if spec.type == 'time'
-    @spec.type
+    spec.type
   end
 
   def smithy_name
@@ -42,7 +43,7 @@ class Parameter
     {
       deprecated: (!!@deprecation unless @deprecation.nil?),
       deprecation_info:,
-      documentation: @spec.description.gsub('"', "'"),
+      documentation: spec.description.gsub('"', "'"),
       pattern: @pattern,
       default: default_value
       # TODO: Extract default from description
@@ -50,15 +51,19 @@ class Parameter
   end
 
   def options
-    return unless @spec.options
+    return unless spec.options
 
-    @spec.options.map { |option| { key: option.upcase, value: option } }
+    spec.options.map { |option| { key: option.upcase, value: option } }
   end
 
   private
 
   def default_value
-    @spec.default.is_a?(String) ? "\"#{@spec.default}\"" : @spec.default
+    if default.nil? && description.downcase.include?('default')
+      puts description
+      puts description.match?(/.*\(default: (\S*)\).*/)
+    end
+    default.is_a?(String) ? "\"#{default}\"" : default
   end
 
   def deprecation_info
