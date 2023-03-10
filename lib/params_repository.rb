@@ -36,7 +36,9 @@ class ParamsRepository
   end
 
   def filter_by_type(type)
-    @repo.values.select { |param| param.smithy_type == type.to_s }.sort_by(&:type)
+    @repo.values
+         .select { |param| param.smithy_type == type.to_s }
+         .sort_by { |param| [param.type, param.name] }
   end
 
   private

@@ -34,17 +34,26 @@ class Translator
   private
 
   def generate_operations_files(pathnames)
+    folder = @output.join('model')
     pathnames.map do |pathname|
       op = OperationsFileGenerator.new pathname
       @params.add_many op.action.query_params
+      dump folder, op.relative_path, op
     end
   end
 
   def generate_params_files
-    puts ParamsFileGenerator.new(@params.filter_by_type(:integer), :simple).render
-    puts ParamsFileGenerator.new(@params.filter_by_type(:string), :simple).render
-    puts ParamsFileGenerator.new(@params.filter_by_type(:boolean), :simple).render
-    puts ParamsFileGenerator.new(@params.filter_by_type(:list), :list).render
-    puts ParamsFileGenerator.new(@params.filter_by_type(:enum), :enum).render
+    folder = @output.join('model')
+    dump folder, 'common_integers.smithy', ParamsFileGenerator.new(@params.filter_by_type(:integer), :simple)
+    dump folder, 'common_strings.smithy',  ParamsFileGenerator.new(@params.filter_by_type(:string), :simple)
+    dump folder, 'common_boolean.smithy',  ParamsFileGenerator.new(@params.filter_by_type(:boolean), :simple)
+    dump folder, 'common_list.smithy',     ParamsFileGenerator.new(@params.filter_by_type(:list), :list)
+    dump folder, 'common_enums_.smithy',   ParamsFileGenerator.new(@params.filter_by_type(:enum), :enum)
+  end
+
+  def dump(folder, relative_path, generator)
+    path = folder.join(relative_path)
+    path.parent.mkpath
+    path.write generator.render
   end
 end

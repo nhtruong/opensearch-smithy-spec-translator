@@ -37,4 +37,10 @@ class OperationsFileGenerator < BaseGenerator
       }
     end
   end
+
+  def relative_path
+    op_group = action.operation_group
+    op_group = "_global/#{op_group}" if op_group.exclude?('.')
+    "#{op_group.gsub('.', '/')}/operations.smithy"
+  end
 end
