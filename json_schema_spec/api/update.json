@@ -77,7 +77,8 @@
       },
       "require_alias": {
         "type": "boolean",
-        "description": "When true, requires destination is an alias. Default is false"
+        "default": false,
+        "description": "When true, requires destination is an alias."
       }
     },
     "body":{

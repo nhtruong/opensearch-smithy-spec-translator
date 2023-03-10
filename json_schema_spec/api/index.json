@@ -95,7 +95,8 @@
       },
       "require_alias": {
         "type": "boolean",
-        "description": "When true, requires destination to be an alias. Default is false"
+        "default": false,
+        "description": "When true, requires destination to be an alias."
       }
     },
     "body":{
