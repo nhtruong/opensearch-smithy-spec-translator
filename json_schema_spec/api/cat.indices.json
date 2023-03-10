@@ -76,7 +76,7 @@
           "yellow",
           "red"
         ],
-        "description":"A health status (\"green\", \"yellow\", or \"red\" to filter only indices matching the specified health status"
+        "description":"A health status (\"green\", \"yellow\", or \"red\") to filter only indices matching the specified health status"
       },
       "help":{
         "type":"boolean",

@@ -4,22 +4,22 @@ namespace OpenSearch
 
 {{#simples}}
 {{>params.traits}}
-{{smithy_type}} {{name}}
+{{smithy_type}} {{smithy_name}}
 
 {{/simples}}
-
 {{#lists}}
 {{>params.traits}}
-list {{name}} {
+list {{smithy_name}} {
   member: String
 }
-{{/lists}}
 
+{{/lists}}
 {{#enums}}
 {{>params.traits}}
-enum {{name}} {
+enum {{smithy_name}} {
   {{#options}}
   {{key}} = "{{value}}"
   {{/options}}
 }
+
 {{/enums}}

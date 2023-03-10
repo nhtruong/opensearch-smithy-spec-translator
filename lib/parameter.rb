@@ -14,32 +14,27 @@ require_relative 'action'
 
 # Generator for operations.smithy
 class Parameter
-  attr_reader :spec
+  attr_reader :spec, :name
+  delegate :type, to: :spec
 
   # @param [String] name
   # @param [OpenStruct] spec
   def initialize(name, spec)
     @pattern = '^([0-9]+)(?:d|h|m|s|ms|micros|nanos)$' if spec.type == 'time'
-    spec.type = 'string' if %w[number|string time].include?(spec.type)
+    spec.type = 'string' if spec.type == 'number|string'
+    spec.type = 'integer' if spec.type == 'number'
+    spec.type = 'list' if spec.description.starts_with?('A comma-separated')
     @name = name
     @spec = spec
     @deprecation = spec.deprecated
   end
 
-  def category
-    @category ||= case @spec.type
-                  when 'list' then :lists
-                  when 'enum' then :enums
-                  when 'string', 'integer', 'boolean' then :simples
-                  else raise "Unrecognized Data Type: #{@spec.type}"
-                  end
-  end
-
   def smithy_type
+    return 'string' if spec.type == 'time'
     @spec.type
   end
 
-  def name
+  def smithy_name
     @name.to_s.camelcase
   end
 
@@ -47,9 +42,9 @@ class Parameter
     {
       deprecated: (!!@deprecation unless @deprecation.nil?),
       deprecation_info:,
-      documentation: @spec.description,
+      documentation: @spec.description.gsub('"', "'"),
       pattern: @pattern,
-      default: @spec.default
+      default: default_value
       # TODO: Extract default from description
     }
   end
@@ -61,6 +56,10 @@ class Parameter
   end
 
   private
+
+  def default_value
+    @spec.default.is_a?(String) ? "\"#{@spec.default}\"" : @spec.default
+  end
 
   def deprecation_info
     return nil unless @deprecation.is_a? OpenStruct

@@ -18,34 +18,34 @@ class ParamsFileGenerator < BaseGenerator
 
   # @param [Array<Parameter>] params
   # @param [Symbol] category
-  def initialize(params, category = nil)
+  def initialize(params, category)
     @params = params
-    @category = category || @params.first&.category
+    @category = category
     super({})
   end
 
   def simples
-    return unless @category == :simples
+    return unless @category == :simple
     @params.map do |param|
       param.traits.merge({
-        name: param.name,
+        smithy_name: param.smithy_name,
         smithy_type: param.smithy_type
       })
     end
   end
 
   def lists
-    return unless @category == :lists
+    return unless @category == :list
     @params.map do |param|
-      param.traits.merge({ name: param.name })
+      param.traits.merge({ smithy_name: param.smithy_name })
     end
   end
 
   def enums
-    return unless @category == :enums
+    return unless @category == :enum
     @params.map do |param|
       param.traits.merge({
-        name: param.name,
+        smithy_name: param.smithy_name,
         options: param.options
       })
     end

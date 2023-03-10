@@ -31,20 +31,20 @@ class ParamsRepository
     name = param.name
     spec = param.spec
     # TODO: Handle Collisions
-    # raise collision_message(@repo, name, spec) if @repo.include?(name) && @repo[name].spec != spec
+    # raise collision_message(name, spec) if @repo.include?(name) && @repo[name].spec != spec
     @repo[name] = param
   end
 
   def filter_by_type(type)
-    @repo.values.select { |param| param.spec.type == type.to_s }
+    @repo.values.select { |param| param.smithy_type == type.to_s }.sort_by(&:type)
   end
 
   private
 
-  def collision_message(repo, name, info)
+  def collision_message(name, spec)
     "#{name} has already been used \n" \
-      "#{info.to_json} \n" \
-      "#{repo[name].to_json} \n"
+      "#{spec} \n" \
+      "#{@repo[name].spec} \n"
   end
 end
 
