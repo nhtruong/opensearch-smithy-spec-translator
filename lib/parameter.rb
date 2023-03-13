@@ -47,6 +47,7 @@ class Parameter
 
   def skip_repo?
     return true if name == 'master_timeout' && spec.deprecated.nil?
+    return true if name == 'wait_for_active_shards' && !spec.description.downcase.include?('default to')
     false
   end
 
