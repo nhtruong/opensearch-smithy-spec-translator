@@ -28,10 +28,11 @@ class ParamsRepository
 
   # @param [Parameter] param
   def add_one(param)
+    return if param.unique_description? || param.skip_repo?
     name = param.name
     spec = param.spec
     # TODO: Handle Collisions
-    # raise collision_message(name, spec) if @repo.include?(name) && @repo[name].spec != spec
+    raise collision_message(name, spec) if @repo.include?(name) && @repo[name].spec != spec
     @repo[name] = param
   end
 

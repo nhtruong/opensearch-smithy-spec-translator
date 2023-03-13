@@ -14,7 +14,7 @@ require_relative 'action'
 
 # Generator for operations.smithy
 class Parameter
-  attr_reader :spec, :name
+  attr_reader :spec
 
   delegate :type, :description, :default, to: :spec
 
@@ -25,7 +25,7 @@ class Parameter
     spec.type = 'string' if spec.type == 'number|string'
     spec.type = 'integer' if spec.type == 'number'
     spec.type = 'list' if spec.description.starts_with?('A comma-separated')
-    @name = name
+    @original_name = name
     @spec = spec
     @deprecation = spec.deprecated
   end
@@ -35,8 +35,23 @@ class Parameter
     spec.type
   end
 
+  def name
+    return @name if @name
+    return @name = "#{@original_name}_#{spec.default}" if @original_name == :expand_wildcards
+    @name = @original_name.to_s
+  end
+
+  def unique_description?
+    spec.description.starts_with?('A comma separated list of indices to')
+  end
+
+  def skip_repo?
+    return true if name == 'master_timeout' && spec.deprecated.nil?
+    false
+  end
+
   def smithy_name
-    @name.to_s.camelcase
+    name.to_s.camelcase
   end
 
   def traits
