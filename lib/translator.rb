@@ -18,7 +18,7 @@ require_relative 'structures_file_generator'
 class Translator
   def initialize(input, output)
     @input = Pathname input
-    @output = Pathname output
+    @output = Pathname(output).join('model')
     @params = ParamsRepository.new
   end
 
@@ -42,34 +42,31 @@ class Translator
   end
 
   def generate_operations(actions)
-    folder = @output.join('model')
     actions.map do |action|
       op = OperationsFileGenerator.new action
-      dump folder, relative_path(action.operation_group, 'operations'), op
+      dump relative_path(action.operation_group, 'operations'), op
 
       st = StructuresFileGenerator.new action
-      dump folder, relative_path(action.operation_group, 'structures'), st
+      dump relative_path(action.operation_group, 'structures'), st
     end
   end
 
   def generate_params(actions)
     actions.each do |action|
       @params.add_many action.query_params
-      # TODO: Add path params
-      # action.operations.each { |operation| @params.add_many operation.path_params }
+      @params.add_many action.operations.map(&:path_params).flatten
     end
 
-    folder = @output.join('model')
-    dump folder, 'common_integers.smithy', ParamsFileGenerator.new(@params.filter_by_type(:integer), :simple)
-    dump folder, 'common_strings.smithy',  ParamsFileGenerator.new(@params.filter_by_type(:string), :simple)
-    dump folder, 'common_booleans.smithy', ParamsFileGenerator.new(@params.filter_by_type(:boolean), :simple)
-    dump folder, 'common_lists.smithy',    ParamsFileGenerator.new(@params.filter_by_type(:list), :list)
-    dump folder, 'common_enums.smithy',    ParamsFileGenerator.new(@params.filter_by_type(:enum), :enum)
+    dump 'common_integers.smithy', ParamsFileGenerator.new(@params.filter_by_type(:integer), :simple)
+    dump 'common_strings.smithy',  ParamsFileGenerator.new(@params.filter_by_type(:string), :simple)
+    dump 'common_booleans.smithy', ParamsFileGenerator.new(@params.filter_by_type(:boolean), :simple)
+    dump 'common_lists.smithy',    ParamsFileGenerator.new(@params.filter_by_type(:list), :list)
+    dump 'common_enums.smithy',    ParamsFileGenerator.new(@params.filter_by_type(:enum), :enum)
   end
 
-  def dump(folder, relative_path, generator)
+  def dump(relative_path, generator)
     # TODO: Handle Collisions with existing files
-    path = folder.join(relative_path)
+    path = @output.join(relative_path)
     path.parent.mkpath
     path.write generator.render
   end

@@ -43,4 +43,8 @@ class Action
   def query_params
     @query_params ||= spec.params.to_h.map { |name, spec| Parameter.new name, spec }
   end
+
+  def with_body?
+    operations.any?(&:with_body?)
+  end
 end

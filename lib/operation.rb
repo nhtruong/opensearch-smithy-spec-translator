@@ -38,11 +38,15 @@ class Operation
 
   def output_name
     name = @group.gsub('.', '_').camelcase
-    [name, @index, 'Output'].compact.join('_')
+    [name, 'Output'].compact.join('_')
   end
 
   def path_params
     @path_params ||= @spec.url.paths.find { |path| path.path == @path }.parts.to_h
                           &.map { |name, spec| Parameter.new name, spec }
+  end
+
+  def with_body?
+    @method == 'POST' || @method == 'PUT'
   end
 end

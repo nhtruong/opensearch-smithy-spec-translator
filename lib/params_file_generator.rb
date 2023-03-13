@@ -29,7 +29,8 @@ class ParamsFileGenerator < BaseGenerator
     @params.map do |param|
       param.traits.merge({
         smithy_name: param.smithy_name,
-        smithy_type: param.smithy_type
+        smithy_type: param.smithy_type,
+        _blank_line: param.name != @params.last.name
       })
     end
   end
@@ -37,7 +38,7 @@ class ParamsFileGenerator < BaseGenerator
   def lists
     return unless @category == :list
     @params.map do |param|
-      param.traits.merge({ smithy_name: param.smithy_name })
+      param.traits.merge({ smithy_name: param.smithy_name, _blank_line: param.name != @params.last.name })
     end
   end
 
@@ -46,7 +47,8 @@ class ParamsFileGenerator < BaseGenerator
     @params.map do |param|
       param.traits.merge({
         smithy_name: param.smithy_name,
-        options: param.options
+        options: param.options,
+        _blank_line: param.name != @params.last.name
       })
     end
   end

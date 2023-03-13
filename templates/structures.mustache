@@ -6,24 +6,30 @@ structure {{common_query_structure}} {
 {{#query_params}}
   @httpQuery("{{name}}")
   {{name}}: {{type}},
+  {{#_blank_line}}
 
+  {{/_blank_line}}
 {{/query_params}}
 }
 
+{{#common_body_structure}}
+// TODO: Fill in Body Parameters
+structure {{common_body_structure}} {}
+{{/common_body_structure}}
+
 {{#input_structures}}
 @input
-structure {{structure_name}} with [{{common_query_structure}}] {
+structure {{structure_name}} with [{{common_query_structure}}{{#with_body}}, {{common_body_structure}}{{/with_body}}] {
   {{#path_params}}
   @required
   @httpLabel
   {{name}}: {{type}},
+  {{#_blank_line}}
 
+  {{/_blank_line}}
   {{/path_params}}
 }
 
 {{/input_structures}}
-{{#output_structures}}
 @output
-structure {{structure_name}} {}
-
-{{/output_structures}}
+structure {{output_structure}} {}

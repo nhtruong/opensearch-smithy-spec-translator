@@ -22,14 +22,20 @@ class StructuresFileGenerator < BaseGenerator
   end
 
   def common_query_structure
-    "#{action.operation_group.gsub('.', '_').camelcase}QueryParams"
+    "#{action.operation_group.gsub('.', '_').camelcase}_QueryParams"
+  end
+
+  def common_body_structure
+    return unless action.with_body?
+    "#{action.operation_group.gsub('.', '_').camelcase}_BodyParams"
   end
 
   def query_params
     action.query_params.map do |param|
       {
         name: param.name,
-        type: param.smithy_name
+        type: param.smithy_name,
+        _blank_line: param.name != action.query_params.last.name
       }
     end
   end
@@ -39,16 +45,17 @@ class StructuresFileGenerator < BaseGenerator
       {
         structure_name: operation.input_name,
         common_query_structure:,
-        path_params: operation.path_params&.map { |param| { name: param.name, type: param.smithy_name } }
+        with_body: operation.with_body?,
+        path_params: operation.path_params&.map do |param|
+        { name: param.name,
+          type: param.smithy_name,
+          _blank_line: param.name != operation.path_params.last.name }
+      end
       }
     end
   end
 
-  def output_structures
-    action.operations.map do |operation|
-      {
-        structure_name: operation.output_name
-      }
-    end
+  def output_structure
+    action.operations.first.output_name
   end
 end
