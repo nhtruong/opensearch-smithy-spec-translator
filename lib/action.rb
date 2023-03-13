@@ -36,8 +36,9 @@ class Action
   end
 
   def description
-    # TODO: Add Missing Periods
-    spec.documentation.description
+    return if spec.description.nil?
+    description = spec.description.gsub('"', "'").strip
+    description[-1] == '.' ? description : "#{description}."
   end
 
   def query_params

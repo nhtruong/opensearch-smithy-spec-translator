@@ -45,7 +45,7 @@ class Parameter
       with_default: !default.nil?,
       deprecated: (!!@deprecation unless @deprecation.nil?),
       deprecation_info:,
-      documentation: spec.description.gsub('"', "'"),
+      documentation:,
       pattern: @pattern
     }
   end
@@ -57,6 +57,12 @@ class Parameter
   end
 
   private
+
+  def documentation
+    return if spec.description.nil?
+    description = spec.description.gsub('"', "'").strip
+    description[-1] == '.' ? description : "#{description}."
+  end
 
   def default_value
     capture_default
