@@ -47,10 +47,10 @@ class StructuresFileGenerator < BaseGenerator
         common_query_structure:,
         with_body: operation.with_body?,
         path_params: operation.path_params&.map do |param|
-        { name: param.name,
-          type: param.smithy_name,
-          _blank_line: param.name != operation.path_params.last.name }
-      end
+                       { name: param.name,
+                         type: param.smithy_name,
+                         _blank_line: param.name != operation.path_params.last.name }
+                     end
       }
     end
   end
