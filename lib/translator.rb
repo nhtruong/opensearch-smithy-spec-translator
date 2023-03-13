@@ -30,7 +30,7 @@ class Translator
                 end
     actions = pathnames.map { |pathname| Action.new pathname }
     generate_operations actions
-    generate_params_files actions
+    generate_params actions
   end
 
   private
@@ -52,7 +52,7 @@ class Translator
     end
   end
 
-  def generate_params_files(actions)
+  def generate_params(actions)
     actions.each do |action|
       @params.add_many action.query_params
       # action.operations.each { |operation| @params.add_many operation.path_params }
