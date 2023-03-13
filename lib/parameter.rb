@@ -14,7 +14,7 @@ require_relative 'action'
 
 # Generator for operations.smithy
 class Parameter
-  attr_reader :spec
+  attr_reader :spec, :original_name
 
   delegate :type, :description, :default, to: :spec
 
