@@ -2,11 +2,12 @@
 $version: "2"
 namespace OpenSearch
 
-structure {{common_query_structrure}} {
-{{#params}}
+structure {{common_query_structure}} {
+{{#query_params}}
   @httpQuery("{{name}}")
   {{name}}: {{type}},
-{{/params}}
+
+{{/query_params}}
 }
 
 {{#input_structures}}
@@ -16,6 +17,7 @@ structure {{structure_name}} with [{{common_query_structure}}] {
   @required
   @httpLabel
   {{name}}: {{type}},
+
   {{/path_params}}
 }
 

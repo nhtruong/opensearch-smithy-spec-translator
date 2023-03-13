@@ -55,6 +55,7 @@ class Translator
   def generate_params(actions)
     actions.each do |action|
       @params.add_many action.query_params
+      # TODO: Add path params
       # action.operations.each { |operation| @params.add_many operation.path_params }
     end
 
