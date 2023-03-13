@@ -1,3 +1,27 @@
-{{licensse_header}}
+{{license_header}}
 $version: "2"
 namespace OpenSearch
+
+structure {{common_query_structrure}} {
+{{#params}}
+  @httpQuery("{{name}}")
+  {{name}}: {{type}},
+{{/params}}
+}
+
+{{#input_structures}}
+@input
+structure {{structure_name}} with [{{common_query_structure}}] {
+  {{#path_params}}
+  @required
+  @httpLabel
+  {{name}}: {{type}},
+  {{/path_params}}
+}
+
+{{/input_structures}}
+{{#output_structures}}
+@output
+structure {{structure_name}} {}
+
+{{/output_structures}}
