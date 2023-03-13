@@ -29,13 +29,8 @@ class Translator
                   groups.map { |basename| @input.join "#{basename}.json" }
                 end
     actions = pathnames.map { |pathname| Action.new pathname }
-    actions.each do |action|
-      @params.add_many action.query_params
-      # action.operations.each { |operation| @params.add_many operation.path_params }
-    end
-    generate_operations_files actions
-    generate_structures_files actions
-    generate_params_files
+    generate_operations actions
+    generate_params_files actions
   end
 
   private
@@ -46,29 +41,29 @@ class Translator
     "#{op_group.gsub('.', '/')}/#{filename}.smithy"
   end
 
-  def generate_operations_files(actions)
+  def generate_operations(actions)
     folder = @output.join('model')
     actions.map do |action|
       op = OperationsFileGenerator.new action
       dump folder, relative_path(action.operation_group, 'operations'), op
-    end
-  end
 
-  def generate_structures_files(actions)
-    folder = @output.join('model')
-    actions.map do |action|
       st = StructuresFileGenerator.new action
       dump folder, relative_path(action.operation_group, 'structures'), st
     end
   end
 
-  def generate_params_files
+  def generate_params_files(actions)
+    actions.each do |action|
+      @params.add_many action.query_params
+      # action.operations.each { |operation| @params.add_many operation.path_params }
+    end
+
     folder = @output.join('model')
     dump folder, 'common_integers.smithy', ParamsFileGenerator.new(@params.filter_by_type(:integer), :simple)
     dump folder, 'common_strings.smithy',  ParamsFileGenerator.new(@params.filter_by_type(:string), :simple)
     dump folder, 'common_booleans.smithy', ParamsFileGenerator.new(@params.filter_by_type(:boolean), :simple)
     dump folder, 'common_lists.smithy',    ParamsFileGenerator.new(@params.filter_by_type(:list), :list)
-    dump folder, 'common_enums.smithy',   ParamsFileGenerator.new(@params.filter_by_type(:enum), :enum)
+    dump folder, 'common_enums.smithy',    ParamsFileGenerator.new(@params.filter_by_type(:enum), :enum)
   end
 
   def dump(folder, relative_path, generator)
