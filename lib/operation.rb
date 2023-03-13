@@ -40,4 +40,9 @@ class Operation
     name = @group.gsub('.', '_').camelcase
     [name, @index, 'Output'].compact.join('_')
   end
+
+  def path_params
+    @path_params ||= @spec.url.paths.find { |path| path.path == @path }.parts
+                          &.map { |name, spec| Parameter.new name, spec }
+  end
 end

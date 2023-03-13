@@ -12,6 +12,7 @@
 require_relative 'params_repository'
 require_relative 'params_file_generator'
 require_relative 'operations_file_generator'
+require_relative 'structures_file_generator'
 
 # Translate legacy spec to smithy models
 class Translator
@@ -27,23 +28,39 @@ class Translator
                 else
                   groups.map { |basename| @input.join "#{basename}.json" }
                 end
-    generate_operations_files pathnames
-    generate_structures_files(pathnames)
+    actions = pathnames.map { |pathname| Action.new pathname }
+    actions.each do |action|
+      @params.add_many action.query_params
+      # action.operations.each { |operation| @params.add_many operation.path_params }
+    end
+    generate_operations_files actions
+    generate_structures_files actions
     generate_params_files
   end
 
   private
 
-  def generate_operations_files(pathnames)
+  def relative_path(operation_group, filename)
+    op_group = operation_group
+    op_group = "_global/#{op_group}" if op_group.exclude?('.')
+    "#{op_group.gsub('.', '/')}/#{filename}.smithy"
+  end
+
+  def generate_operations_files(actions)
     folder = @output.join('model')
-    pathnames.map do |pathname|
-      op = OperationsFileGenerator.new pathname
-      @params.add_many op.action.query_params
-      dump folder, op.relative_path, op
+    actions.map do |action|
+      op = OperationsFileGenerator.new action
+      dump folder, relative_path(action.operation_group, 'operations'), op
     end
   end
 
-  def generate_structures_files(pathnames); end
+  def generate_structures_files(actions)
+    folder = @output.join('model')
+    actions.map do |action|
+      st = StructuresFileGenerator.new action
+      dump folder, relative_path(action.operation_group, 'structures'), st
+    end
+  end
 
   def generate_params_files
     folder = @output.join('model')

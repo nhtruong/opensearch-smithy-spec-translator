@@ -18,9 +18,9 @@ class OperationsFileGenerator < BaseGenerator
 
   attr_reader :action
 
-  # @param [String | Pathname] filepath
-  def initialize(filepath)
-    @action = Action.new Pathname.new(filepath)
+  # @param [Action] action
+  def initialize(action)
+    @action = action
     super
   end
 
@@ -36,11 +36,5 @@ class OperationsFileGenerator < BaseGenerator
         description: action.description
       }
     end
-  end
-
-  def relative_path
-    op_group = action.operation_group
-    op_group = "_global/#{op_group}" if op_group.exclude?('.')
-    "#{op_group.gsub('.', '/')}/operations.smithy"
   end
 end

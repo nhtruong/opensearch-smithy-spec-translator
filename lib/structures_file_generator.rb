@@ -12,4 +12,12 @@
 # Generator for structures.smithy
 class StructuresFileGenerator < BaseGenerator
   self.template_file = './templates/structures.mustache'
+
+  attr_reader :action
+
+  # @param [Action] action
+  def initialize(action)
+    @action = action
+    super
+  end
 end
