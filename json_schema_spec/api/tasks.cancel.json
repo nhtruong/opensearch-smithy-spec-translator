@@ -30,11 +30,11 @@
     "params":{
       "nodes":{
         "type":"list",
-        "description":"A comma-separated list of node IDs or names to limit the returned information; use `_local` to return information from the node you're connecting to, leave empty to get information from all nodes"
+        "description":"Comma-separated list of node IDs or names to limit the returned information; use `_local` to return information from the node you're connecting to, leave empty to get information from all nodes"
       },
       "actions":{
         "type":"list",
-        "description":"A comma-separated list of actions that should be cancelled. Leave empty to cancel all."
+        "description":"Comma-separated list of actions that should be cancelled. Leave empty to cancel all."
       },
       "parent_task_id":{
         "type":"string",
@@ -43,7 +43,7 @@
       "wait_for_completion": {
         "type":"boolean",
         "default": false,
-        "description":"Should the request block until the cancellation of the task and its descendant tasks is completed."
+        "description": "Should this request wait until the operation has completed before returning"
       }
     }
   }

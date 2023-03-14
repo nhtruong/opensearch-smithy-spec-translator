@@ -15,7 +15,7 @@
           "parts":{
             "name":{
               "type":"list",
-              "description":"A comma-separated list of data streams to delete; use `*` to delete all data streams"
+              "description":"Comma-separated list of data streams to delete; use `*` to delete all data streams"
             }
           }
         }

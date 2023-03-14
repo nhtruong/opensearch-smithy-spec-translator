@@ -30,7 +30,7 @@
     "params":{
       "format":{
         "type":"string",
-        "description":"a short version of the Accept header, e.g. json, yaml"
+        "description":"A short version of the Accept header, e.g. json, yaml"
       },
       "active_only":{
         "type":"boolean",

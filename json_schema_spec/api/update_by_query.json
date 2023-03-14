@@ -15,7 +15,7 @@
           "parts":{
             "index":{
               "type":"list",
-              "description":"A comma-separated list of index names; use `_all` or empty string to perform the operation on all indices"
+              "description":"Comma-separated list of indices; use `_all` or empty string to perform the operation on all indices"
             }
           }
         }
@@ -94,7 +94,7 @@
       },
       "routing":{
         "type":"list",
-        "description":"A comma-separated list of specific routing values"
+        "description":"Comma-separated list of specific routing values"
       },
       "scroll":{
         "type":"time",
@@ -122,7 +122,7 @@
       },
       "sort":{
         "type":"list",
-        "description":"A comma-separated list of <field>:<direction> pairs"
+        "description":"Comma-separated list of <field>:<direction> pairs"
       },
       "_source":{
         "type":"list",
@@ -130,11 +130,11 @@
       },
       "_source_excludes":{
         "type":"list",
-        "description":"A list of fields to exclude from the returned _source field"
+        "description":"List of fields to exclude from the returned _source field"
       },
       "_source_includes":{
         "type":"list",
-        "description":"A list of fields to extract and return from the _source field"
+        "description":"List of fields to extract and return from the _source field"
       },
       "terminate_after":{
         "type":"number",
@@ -146,7 +146,7 @@
       },
       "version":{
         "type":"boolean",
-        "description":"Specify whether to return document version as part of a hit"
+        "description":"Whether to return document version as part of a hit"
       },
       "version_type":{
         "type":"boolean",
@@ -177,7 +177,7 @@
       "wait_for_completion":{
         "type":"boolean",
         "default":true,
-        "description":"Should the request should block until the update by query operation is complete."
+        "description": "Should this request wait until the operation has completed before returning"
       },
       "requests_per_second":{
         "type":"number",

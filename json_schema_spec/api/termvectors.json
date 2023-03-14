@@ -52,7 +52,7 @@
       },
       "fields":{
         "type":"list",
-        "description":"A comma-separated list of fields to return."
+        "description":"Comma-separated list of fields to return."
       },
       "offsets":{
         "type":"boolean",
@@ -75,7 +75,7 @@
       },
       "routing":{
         "type":"string",
-        "description":"Specific routing value."
+        "description":"Routing value."
       },
       "realtime":{
         "type":"boolean",

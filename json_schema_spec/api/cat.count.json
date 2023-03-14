@@ -21,7 +21,7 @@
           "parts":{
             "index":{
               "type":"list",
-              "description":"A comma-separated list of index names to limit the returned information"
+              "description":"Comma-separated list of indices to limit the returned information"
             }
           }
         }
@@ -30,7 +30,7 @@
     "params":{
       "format":{
         "type":"string",
-        "description":"a short version of the Accept header, e.g. json, yaml"
+        "description":"A short version of the Accept header, e.g. json, yaml"
       },
       "h":{
         "type":"list",

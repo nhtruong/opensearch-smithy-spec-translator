@@ -15,7 +15,7 @@
           "parts":{
             "index":{
               "type":"list",
-              "description":"A comma-separated list of index names"
+              "description":"Comma-separated list of indices"
             }
           }
         }

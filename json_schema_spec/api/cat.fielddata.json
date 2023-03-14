@@ -21,7 +21,7 @@
           "parts":{
             "fields":{
               "type":"list",
-              "description":"A comma-separated list of fields to return the fielddata size"
+              "description":"Comma-separated list of fields to return the fielddata size"
             }
           }
         }
@@ -30,7 +30,7 @@
     "params":{
       "format":{
         "type":"string",
-        "description":"a short version of the Accept header, e.g. json, yaml"
+        "description":"A short version of the Accept header, e.g. json, yaml"
       },
       "bytes":{
         "type":"enum",
@@ -69,7 +69,7 @@
       },
       "fields":{
         "type":"list",
-        "description":"A comma-separated list of fields to return in the output"
+        "description":"Comma-separated list of fields to return in the output"
       }
     }
   }

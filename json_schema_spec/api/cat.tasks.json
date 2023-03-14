@@ -18,15 +18,15 @@
     "params":{
       "format":{
         "type":"string",
-        "description":"a short version of the Accept header, e.g. json, yaml"
+        "description":"A short version of the Accept header, e.g. json, yaml"
       },
       "nodes":{
         "type":"list",
-        "description":"A comma-separated list of node IDs or names to limit the returned information; use `_local` to return information from the node you're connecting to, leave empty to get information from all nodes"
+        "description":"Comma-separated list of node IDs or names to limit the returned information; use `_local` to return information from the node you're connecting to, leave empty to get information from all nodes"
       },
       "actions":{
         "type":"list",
-        "description":"A comma-separated list of actions that should be returned. Leave empty to return all."
+        "description":"Comma-separated list of actions that should be returned. Leave empty to return all."
       },
       "detailed":{
         "type":"boolean",

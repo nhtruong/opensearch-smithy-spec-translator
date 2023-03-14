@@ -21,7 +21,7 @@
           "parts":{
             "node_id":{
               "type":"list",
-              "description":"A comma-separated list of node IDs or names to limit the returned information; use `_local` to return information from the node you're connecting to, leave empty to get information from all nodes"
+              "description":"Comma-separated list of node IDs or names to limit the returned information; use `_local` to return information from the node you're connecting to, leave empty to get information from all nodes"
             }
           }
         },
@@ -77,7 +77,7 @@
             },
             "node_id":{
               "type":"list",
-              "description":"A comma-separated list of node IDs or names to limit the returned information; use `_local` to return information from the node you're connecting to, leave empty to get information from all nodes"
+              "description":"Comma-separated list of node IDs or names to limit the returned information; use `_local` to return information from the node you're connecting to, leave empty to get information from all nodes"
             }
           }
         },
@@ -177,7 +177,7 @@
             },
             "node_id":{
               "type":"list",
-              "description":"A comma-separated list of node IDs or names to limit the returned information; use `_local` to return information from the node you're connecting to, leave empty to get information from all nodes"
+              "description":"Comma-separated list of node IDs or names to limit the returned information; use `_local` to return information from the node you're connecting to, leave empty to get information from all nodes"
             }
           }
         }
@@ -186,19 +186,19 @@
     "params":{
       "completion_fields":{
         "type":"list",
-        "description":"A comma-separated list of fields for `fielddata` and `suggest` index metric (supports wildcards)"
+        "description":"Comma-separated list of fields for `fielddata` and `suggest` index metric (supports wildcards)"
       },
       "fielddata_fields":{
         "type":"list",
-        "description":"A comma-separated list of fields for `fielddata` index metric (supports wildcards)"
+        "description":"Comma-separated list of fields for `fielddata` index metric (supports wildcards)"
       },
       "fields":{
         "type":"list",
-        "description":"A comma-separated list of fields for `fielddata` and `completion` index metric (supports wildcards)"
+        "description":"Comma-separated list of fields for `fielddata` and `completion` index metric (supports wildcards)"
       },
       "groups":{
         "type":"boolean",
-        "description":"A comma-separated list of search groups for `search` index metric"
+        "description":"Comma-separated list of search groups for `search` index metric"
       },
       "level":{
         "type":"enum",
@@ -212,11 +212,11 @@
       },
       "types":{
         "type":"list",
-        "description":"A comma-separated list of document types for the `indexing` index metric"
+        "description":"Comma-separated list of document types for the `indexing` index metric"
       },
       "timeout":{
         "type":"time",
-        "description":"Explicit operation timeout"
+        "description":"Operation timeout"
       },
       "include_segment_file_sizes":{
         "type":"boolean",

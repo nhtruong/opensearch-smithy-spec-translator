@@ -24,7 +24,7 @@
           "parts":{
             "index":{
               "type":"list",
-              "description":"A comma-separated list of indices to restrict the results"
+              "description":"Comma-separated list of indices to restrict the results"
             }
           }
         }
@@ -65,7 +65,7 @@
       },
       "routing":{
         "type":"list",
-        "description":"A comma-separated list of specific routing values"
+        "description":"Comma-separated list of specific routing values"
       },
       "q":{
         "type":"string",
@@ -102,7 +102,7 @@
       }
     },
     "body":{
-      "description":"A query to restrict the results specified with the Query DSL (optional)"
+      "description":"Query to restrict the results specified with the Query DSL (optional)"
     }
   }
 }

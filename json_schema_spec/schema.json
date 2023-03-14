@@ -112,7 +112,7 @@
                 }
             },
             "title": "API query string parameters",
-            "description": "A collection of the query string parameters for the API"
+            "description": "Collection of the query string parameters for the API"
         },
         "Body": {
             "type": "object",
@@ -146,7 +146,7 @@
                 },
                 "description": {
                     "type": "string",
-                    "title": "A description for the deprecation, which may include alternatives to use"
+                    "title": "Description for the deprecation, which may include alternatives to use"
                 }
             },
             "required": [
@@ -217,7 +217,7 @@
                 },
                 "description": {
                     "type": "string",
-                    "title": "A description for the parameter"
+                    "title": "Description for the parameter"
                 },
                 "required": {
                     "type": "boolean",

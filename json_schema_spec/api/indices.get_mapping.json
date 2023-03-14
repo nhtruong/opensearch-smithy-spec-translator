@@ -21,7 +21,7 @@
           "parts":{
             "index":{
               "type":"list",
-              "description":"A comma-separated list of index names"
+              "description":"Comma-separated list of indices"
             }
           }
         }
@@ -50,7 +50,7 @@
       },
       "master_timeout":{
         "type":"time",
-        "description":"Specify timeout for connection to master",
+        "description":"Operation timeout for connection to master node",
         "deprecated":{
           "version":"2.0.0",
           "description":"To promote inclusive language, use 'cluster_manager_timeout' instead."
@@ -58,7 +58,7 @@
       },
       "cluster_manager_timeout":{
         "type":"time",
-        "description":"Specify timeout for connection to cluster-manager node"
+        "description":"Operation timeout for connection to cluster-manager node"
       },
       "local":{
         "type":"boolean",

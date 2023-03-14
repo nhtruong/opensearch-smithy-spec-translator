@@ -21,7 +21,7 @@
           "parts":{
             "name":{
               "type":"list",
-              "description":"A comma-separated list of alias names to return"
+              "description":"Comma-separated list of alias names to return"
             }
           }
         }
@@ -30,7 +30,7 @@
     "params":{
       "format":{
         "type":"string",
-        "description":"a short version of the Accept header, e.g. json, yaml"
+        "description":"A short version of the Accept header, e.g. json, yaml"
       },
       "local":{
         "type":"boolean",

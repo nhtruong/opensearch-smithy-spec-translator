@@ -32,7 +32,7 @@
       "wait_for_completion":{
         "type":"boolean",
         "default":true,
-        "description":"Should the request should block until the reindex is complete."
+        "description": "Should this request wait until the operation has completed before returning"
       },
       "requests_per_second":{
         "type":"number",

@@ -16,11 +16,11 @@
           "parts":{
             "id":{
               "type":"string",
-              "description":"The document ID"
+              "description":"Document ID"
             },
             "index":{
               "type":"string",
-              "description":"The name of the index"
+              "description":"Index name"
             }
           }
         }
@@ -50,7 +50,7 @@
       },
       "stored_fields":{
         "type":"list",
-        "description":"A comma-separated list of stored fields to return in the response"
+        "description":"Comma-separated list of stored fields to return in the response"
       },
       "lenient":{
         "type":"boolean",
@@ -66,7 +66,7 @@
       },
       "routing":{
         "type":"string",
-        "description":"Specific routing value"
+        "description":"Routing value"
       },
       "_source":{
         "type":"list",
@@ -74,11 +74,11 @@
       },
       "_source_excludes":{
         "type":"list",
-        "description":"A list of fields to exclude from the returned _source field"
+        "description":"List of fields to exclude from the returned _source field"
       },
       "_source_includes":{
         "type":"list",
-        "description":"A list of fields to extract and return from the _source field"
+        "description":"List of fields to extract and return from the _source field"
       }
     },
     "body":{

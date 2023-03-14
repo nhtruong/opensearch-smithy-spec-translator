@@ -15,7 +15,7 @@
           "parts":{
             "name":{
               "type":"list",
-              "description":"A comma-separated list of names or wildcard expressions"
+              "description":"Comma-separated list of names or wildcard expressions"
             }
           }
         }

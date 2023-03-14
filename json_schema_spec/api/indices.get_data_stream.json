@@ -21,7 +21,7 @@
           "parts":{
             "name":{
               "type":"list",
-              "description":"A comma-separated list of data streams to get; use `*` to get all data streams"
+              "description":"Comma-separated list of data streams to get; use `*` to get all data streams"
             }
           }
         }

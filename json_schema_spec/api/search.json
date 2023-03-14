@@ -23,7 +23,7 @@
           "parts":{
             "index":{
               "type":"list",
-              "description":"A comma-separated list of index names; use `_all` or empty string to perform the operation on all indices"
+              "description":"Comma-separated list of indices; use `_all` or empty string to perform the operation on all indices"
             }
           }
         }
@@ -62,11 +62,11 @@
       },
       "stored_fields":{
         "type":"list",
-        "description":"A comma-separated list of stored fields to return as part of a hit"
+        "description":"Comma-separated list of stored fields to return as part of a hit"
       },
       "docvalue_fields":{
         "type":"list",
-        "description":"A comma-separated list of fields to return as the docvalue representation of a field for each hit"
+        "description":"Comma-separated list of fields to return as the docvalue representation of a field for each hit"
       },
       "from":{
         "type":"number",
@@ -110,7 +110,7 @@
       },
       "routing":{
         "type":"list",
-        "description":"A comma-separated list of specific routing values"
+        "description":"Comma-separated list of specific routing values"
       },
       "scroll":{
         "type":"time",
@@ -130,7 +130,7 @@
       },
       "sort":{
         "type":"list",
-        "description":"A comma-separated list of <field>:<direction> pairs"
+        "description":"Comma-separated list of <field>:<direction> pairs"
       },
       "_source":{
         "type":"list",
@@ -138,11 +138,11 @@
       },
       "_source_excludes":{
         "type":"list",
-        "description":"A list of fields to exclude from the returned _source field"
+        "description":"List of fields to exclude from the returned _source field"
       },
       "_source_includes":{
         "type":"list",
-        "description":"A list of fields to extract and return from the _source field"
+        "description":"List of fields to extract and return from the _source field"
       },
       "terminate_after":{
         "type":"number",
@@ -176,7 +176,7 @@
       },
       "timeout":{
         "type":"time",
-        "description":"Explicit operation timeout"
+        "description":"Operation timeout"
       },
       "track_scores":{
         "type":"boolean",
@@ -197,7 +197,7 @@
       },
       "version":{
         "type":"boolean",
-        "description":"Specify whether to return document version as part of a hit"
+        "description":"Whether to return document version as part of a hit"
       },
       "seq_no_primary_term":{
         "type":"boolean",
@@ -219,7 +219,7 @@
       },
       "pre_filter_shard_size":{
         "type":"number",
-        "description":"A threshold that enforces a pre-filter roundtrip to prefilter search shards based on query rewriting if the number of shards the search request expands to exceeds the threshold. This filter roundtrip can limit the number of shards significantly if for instance a shard can not match any documents based on its rewrite method ie. if date filters are mandatory to match but the shard bounds and the query are disjoint."
+        "description":"Threshold that enforces a pre-filter roundtrip to prefilter search shards based on query rewriting if the number of shards the search request expands to exceeds the threshold. This filter roundtrip can limit the number of shards significantly if for instance a shard can not match any documents based on its rewrite method ie. if date filters are mandatory to match but the shard bounds and the query are disjoint."
       },
       "rest_total_hits_as_int":{
         "type":"boolean",

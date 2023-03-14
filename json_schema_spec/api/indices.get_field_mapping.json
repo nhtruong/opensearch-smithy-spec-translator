@@ -15,7 +15,7 @@
           "parts":{
             "fields":{
               "type":"list",
-              "description":"A comma-separated list of fields"
+              "description":"Comma-separated list of fields"
             }
           }
         },
@@ -27,11 +27,11 @@
           "parts":{
             "index":{
               "type":"list",
-              "description":"A comma-separated list of index names"
+              "description":"Comma-separated list of indices"
             },
             "fields":{
               "type":"list",
-              "description":"A comma-separated list of fields"
+              "description":"Comma-separated list of fields"
             }
           }
         }

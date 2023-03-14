@@ -23,7 +23,7 @@
           "parts":{
             "index":{
               "type":"list",
-              "description":"A comma-separated list of index names to use as default"
+              "description":"Comma-separated list of indices to use as default"
             }
           }
         }
