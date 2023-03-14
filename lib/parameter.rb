@@ -27,6 +27,7 @@ class Parameter
     spec.type = 'list' if spec.description.starts_with?('A comma-separated')
     @original_name = name
     @spec = spec
+
     @deprecation = spec.deprecated
   end
 
@@ -38,11 +39,24 @@ class Parameter
   def name
     return @name if @name
     return @name = "#{@original_name}_#{spec.default}" if @original_name == :expand_wildcards
+    return @name = "#{@original_name}_#{spec.type}" if @original_name == :refresh
+    return @name = "#{@original_name}_#{spec.default}" if @original_name == :wait_for_completion
+    return @name = 'indices_list' if @original_name == :index && spec.type == 'list'
+    return @name = 'repositories_list' if @original_name == :repository && spec.type == 'list'
+    return @name = 'routing_list' if @original_name == :routing && spec.type == 'list'
+    return @name = 'document_id' if @original_name == :id && spec.description == 'Document ID'
+    return @name = 'pipeline_id' if @original_name == :id && spec.description == 'Pipeline ID'
+    return @name = 'alias_name' if @original_name == :name && spec.description.starts_with?('The name of the alias')
+    return @name = 'template_name' if @original_name == :name && spec.description.starts_with?('The name of the template')
+    return @name = 'with_version' if @original_name == :version && spec.type == 'boolean'
+    return @name = 'bulk_timeout' if @original_name == :timeout && spec.description.starts_with?('Time each individual bulk')
     @name = @original_name.to_s
   end
 
   def unique_description?
-    spec.description.starts_with?('A comma separated list of indices to')
+    return true if @original_name == :index && spec.description.starts_with?('Comma-separated list of indices to')
+    return true if @original_name == :index && spec.description.starts_with?('The name of the')
+    false
   end
 
   def skip_repo?
