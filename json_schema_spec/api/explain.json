@@ -33,7 +33,7 @@
       },
       "analyzer":{
         "type":"string",
-        "description":"The analyzer for the query string query"
+        "description":"The analyzer to use for the query string"
       },
       "default_operator":{
         "type":"enum",
@@ -50,7 +50,7 @@
       },
       "stored_fields":{
         "type":"list",
-        "description":"Comma-separated list of stored fields to return in the response"
+        "description":"Comma-separated list of stored fields to return"
       },
       "lenient":{
         "type":"boolean",

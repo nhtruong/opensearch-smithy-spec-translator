@@ -32,7 +32,7 @@
     "params":{
       "stored_fields":{
         "type":"list",
-        "description":"Comma-separated list of stored fields to return in the response"
+        "description":"Comma-separated list of stored fields to return"
       },
       "preference":{
         "type":"string",

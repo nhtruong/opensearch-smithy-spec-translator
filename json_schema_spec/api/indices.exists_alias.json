@@ -15,7 +15,7 @@
           "parts":{
             "name":{
               "type":"list",
-              "description":"Comma-separated list of alias names to return"
+              "description":"Comma-separated list of alias names"
             }
           }
         },
@@ -31,7 +31,7 @@
             },
             "name":{
               "type":"list",
-              "description":"Comma-separated list of alias names to return"
+              "description":"Comma-separated list of alias names"
             }
           }
         }

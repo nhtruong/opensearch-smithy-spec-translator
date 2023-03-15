@@ -62,7 +62,7 @@
       },
       "stored_fields":{
         "type":"list",
-        "description":"Comma-separated list of stored fields to return as part of a hit"
+        "description":"Comma-separated list of stored fields to return"
       },
       "docvalue_fields":{
         "type":"list",

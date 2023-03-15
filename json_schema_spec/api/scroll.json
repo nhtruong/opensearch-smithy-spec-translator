@@ -23,8 +23,7 @@
           "parts":{
             "scroll_id":{
               "type":"string",
-              "description":"The scroll ID",
-              "deprecated":true
+              "description":"Scroll ID"
             }
           },
           "deprecated":{
@@ -41,7 +40,7 @@
       },
       "scroll_id":{
         "type":"string",
-        "description":"The scroll ID for scrolled search"
+        "description":"Scroll ID"
       },
       "rest_total_hits_as_int":{
         "type":"boolean",

@@ -21,7 +21,7 @@
           "parts":{
             "index":{
               "type":"list",
-              "description":"Limit the information returned to a specific index"
+              "description":"Limit the information returned to specific indicies"
             }
           }
         }

@@ -5,6 +5,15 @@ namespace OpenSearch
 structure {{common_query_structure}} {
 {{#query_params}}
   @httpQuery("{{name}}")
+  {{#unique_description?}}
+  @documentation("{{{description}}}")
+  {{/unique_description?}}
+  {{#unique_default?}}
+  @default({{{default}}})
+  {{/unique_default?}}
+  {{#required?}}
+  @required
+  {{/required?}}
   {{name}}: {{type}},
   {{#_blank_line}}
 

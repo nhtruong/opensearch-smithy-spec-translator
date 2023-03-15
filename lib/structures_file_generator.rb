@@ -35,6 +35,11 @@ class StructuresFileGenerator < BaseGenerator
       {
         name: param.original_name,
         type: param.smithy_name,
+        unique_description?: param.unique_description?,
+        description: param.documentation,
+        unique_default?: param.unique_default?,
+        default: param.default_value,
+        required?: param.spec.required,
         _blank_line: param.name != action.query_params.last.name
       }
     end

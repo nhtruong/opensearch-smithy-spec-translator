@@ -21,7 +21,7 @@
           "parts":{
             "name":{
               "type":"list",
-              "description":"The Comma-separated names of the index templates"
+              "description":"Comma-separated names of the index templates"
             }
           }
         }

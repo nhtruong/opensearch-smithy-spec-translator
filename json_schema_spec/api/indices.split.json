@@ -20,7 +20,7 @@
             },
             "target":{
               "type":"string",
-              "description":"The name of the target index to split into"
+              "description":"The name of the target index"
             }
           }
         }

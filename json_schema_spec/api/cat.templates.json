@@ -21,7 +21,7 @@
           "parts":{
             "name":{
               "type":"string",
-              "description":"A pattern that returned template names must match"
+              "description":"The name of the template"
             }
           }
         }
