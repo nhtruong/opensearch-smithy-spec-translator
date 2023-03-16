@@ -20,13 +20,14 @@ class Parameter
 
   # @param [String] name
   # @param [OpenStruct] spec
-  def initialize(name, spec)
+  def initialize(name, spec, operation_group)
     @pattern = '^([0-9]+)(?:d|h|m|s|ms|micros|nanos)$' if spec.type == 'time'
     spec.type = 'string' if spec.type == 'number|string'
     spec.type = 'integer' if spec.type == 'number'
     spec.type = 'list' if spec.description.starts_with?('A comma-separated')
     @original_name = name
     @spec = spec
+    @operation_group = operation_group
 
     @deprecation = spec.deprecated
   end
@@ -38,6 +39,7 @@ class Parameter
 
   def name
     return @name if @name
+    return @name = "#{@operation_group.gsub('.', '_')}_#{@original_name}" if @original_name.in? %i[metric]
     return @name = "#{@original_name}_#{spec.default}" if @original_name == :expand_wildcards
     return @name = "#{@original_name}_#{spec.type}" if @original_name == :refresh
     return @name = "#{@original_name}_#{spec.default}" if @original_name == :wait_for_completion
@@ -49,22 +51,32 @@ class Parameter
     return @name = 'routings' if @original_name == :routing && spec.type == 'list'
     return @name = 'snapshots' if @original_name == :snapshot && spec.type == 'list'
     return @name = 'document_id' if @original_name == :id && spec.description == 'Document ID'
+    return @name = 'script_id' if @original_name == :id && spec.description == 'Script ID'
     return @name = 'pipeline_id' if @original_name == :id && spec.description == 'Pipeline ID'
+    return @name = 'pipeline_ids' if @original_name == :id && spec.description.starts_with?('Comma-separated list of pipeline ids')
+    return @name = 'search_template_id' if @original_name == :id && spec.description == 'The id of the stored search template'
     return @name = 'alias_name' if @original_name == :name && spec.description.starts_with?('The name of the alias')
     return @name = 'template_name' if @original_name == :name && spec.description.starts_with?('The name of the template')
     return @name = 'template_names' if @original_name == :name && spec.description.starts_with?('Comma-separated names of the index templates')
+    return @name = 'setting_names' if @original_name == :name && spec.description.starts_with?('Comma-separated list of settings')
     return @name = 'alias_names' if @original_name == :name && spec.description.starts_with?('Comma-separated list of alias names')
+    return @name = 'stream_names' if @original_name == :name && spec.description.starts_with?('Comma-separated list of data streams')
     return @name = 'df_explain' if @original_name == :df && spec.description.starts_with?('The default')
     return @name = 'df_explain_snapshot' if @original_name == :ignore_unavailable && spec.description.starts_with?('Whether to ignore unavailable snapshots')
     return @name = 'stat_fields' if @original_name == :fields && spec.description.ends_with?('(supports wildcards)')
     return @name = 'cluster_health_level' if @original_name == :level && spec.description == 'Specify the level of detail for returned information'
     return @name = 'indicies_stat_level' if @original_name == :level && spec.description == 'Return stats aggregated at cluster, index or shard level'
     return @name = 'nodes_stat_level' if @original_name == :level && spec.description == 'Return indices stats aggregated at index, node or shard level'
+    return @name = 'search_type_multi' if @original_name == :search_type && spec.options.size == 4
+    return @name = 'snapshots_count' if @original_name == :snapshots && spec.type == 'integer'
+    return @name = 'document_type' if @original_name == :type && spec.type == 'string'
+    return @name = 'sample_type' if @original_name == :type && spec.type == 'enum'
+    return @name = 'sample_type' if @original_name == :type && spec.type == 'enum'
     @name = @original_name.to_s
   end
 
   def unique_description?
-    return true if @original_name.in? %i[explain size detailed]
+    return true if @original_name.in? %i[explain size detailed active_only verbose]
     return true if @original_name == :index && spec.description.starts_with?('Comma-separated list of indices to')
     return true if @original_name == :index && spec.description.starts_with?('The name of the')
     return true if @original_name == :index && spec.description.starts_with?('The index in which')
@@ -75,9 +87,11 @@ class Parameter
     return true if @original_name == :analyze_wildcard && spec.description.include?('wildcards and prefix queries')
     return true if @original_name == :realtime && spec.description.starts_with?('Specifies if')
     return true if @original_name == :_source && spec.description.ends_with?('sub-request')
+    return true if @original_name == :repository && spec.description.ends_with?('Wildcard (`*`) patterns are supported.')
     return true if @original_name == :_source_includes && spec.description.ends_with?('sub-request')
     return true if @original_name == :_source_excludes && spec.description.ends_with?('sub-request')
     return true if @original_name == :_source_excludes && spec.description.ends_with?('sub-request')
+    return true if name == 'refresh_boolean'
     return true if spec.description.ends_with?('"params" or "docs".')
     false
   end

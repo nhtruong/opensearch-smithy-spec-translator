@@ -21,7 +21,7 @@
           "parts":{
             "repository":{
               "type":"list",
-              "description":"Name of repository from which to fetch the snapshot information"
+              "description":"Comma-separated list of repository names"
             }
           }
         }

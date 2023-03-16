@@ -37,7 +37,7 @@
             },
             "name":{
               "type":"list",
-              "description":"The name of the settings that should be included"
+              "description":"Comma-separated list of settings"
             }
           }
         },
@@ -49,7 +49,7 @@
           "parts":{
             "name":{
               "type":"list",
-              "description":"The name of the settings that should be included"
+              "description":"Comma-separated list of settings"
             }
           }
         }

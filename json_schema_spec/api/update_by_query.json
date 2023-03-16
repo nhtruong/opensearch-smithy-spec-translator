@@ -62,7 +62,7 @@
           "proceed"
         ],
         "default":"abort",
-        "description":"What to do when the update by query hits version conflicts?"
+        "description":"What to do when the operation encounters version conflicts?"
       },
       "expand_wildcards":{
         "type":"enum",
@@ -82,7 +82,7 @@
       },
       "pipeline":{
         "type":"string",
-        "description":"Ingest pipeline to set on index requests made by this action. (default: none)"
+        "description":"The pipeline id to preprocess incoming documents with"
       },
       "preference":{
         "type":"string",
@@ -148,10 +148,6 @@
         "type":"boolean",
         "description":"Whether to return document version as part of a hit"
       },
-      "version_type":{
-        "type":"boolean",
-        "description":"Should the document increment the version number (internal) on hit or not (reindex)"
-      },
       "request_cache":{
         "type":"boolean",
         "description":"Specify if request cache should be used for this request or not, defaults to index level setting"
@@ -172,7 +168,7 @@
       "scroll_size":{
         "type":"number",
         "default":100,
-        "description":"Size on the scroll request powering the update by query"
+        "description":"Size on the scroll request powering the operation"
       },
       "wait_for_completion":{
         "type":"boolean",

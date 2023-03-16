@@ -76,6 +76,17 @@ class ParamsRepository
         type: 'boolean',
         default: false,
         description: 'Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)'
+      ),
+      'active_only' => OpenStruct.new(
+        type: 'boolean',
+        default: false
+      ),
+      'verbose' => OpenStruct.new(
+        type: 'boolean',
+        default: false
+      ),
+      'refresh_boolean' => OpenStruct.new(
+        type: 'boolean'
       )
     }
   end
