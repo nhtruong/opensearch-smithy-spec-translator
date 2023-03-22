@@ -28,8 +28,8 @@ class Parameter
     @original_name = name
     @spec = spec
     @operation_group = operation_group
-
     @deprecation = spec.deprecated
+    capture_default
   end
 
   def smithy_type
@@ -39,7 +39,7 @@ class Parameter
 
   def name
     return @name if @name
-    return @name = "#{@operation_group.gsub('.', '_')}_#{@original_name}" if @original_name.in? %i[metric]
+    return @name = "#{@operation_group.gsub('.', '_')}_#{@original_name}" if @original_name.in? %i[metric dry_run]
     return @name = "#{@original_name}_#{spec.default}" if @original_name == :expand_wildcards
     return @name = "#{@original_name}_#{spec.type}" if @original_name == :refresh
     return @name = "#{@original_name}_#{spec.default}" if @original_name == :wait_for_completion
@@ -58,9 +58,11 @@ class Parameter
     return @name = 'alias_name' if @original_name == :name && spec.description.starts_with?('The name of the alias')
     return @name = 'template_name' if @original_name == :name && spec.description.starts_with?('The name of the template')
     return @name = 'template_names' if @original_name == :name && spec.description.starts_with?('Comma-separated names of the index templates')
+    return @name = 'component_template_names' if @original_name == :name && spec.description.starts_with?('The Comma-separated names of the component templates')
     return @name = 'setting_names' if @original_name == :name && spec.description.starts_with?('Comma-separated list of settings')
     return @name = 'alias_names' if @original_name == :name && spec.description.starts_with?('Comma-separated list of alias names')
     return @name = 'stream_names' if @original_name == :name && spec.description.starts_with?('Comma-separated list of data streams')
+    return @name = 'stream_name' if @original_name == :name && spec.description.starts_with?('The name of the data stream')
     return @name = 'df_explain' if @original_name == :df && spec.description.starts_with?('The default')
     return @name = 'df_explain_snapshot' if @original_name == :ignore_unavailable && spec.description.starts_with?('Whether to ignore unavailable snapshots')
     return @name = 'stat_fields' if @original_name == :fields && spec.description.ends_with?('(supports wildcards)')
@@ -76,7 +78,7 @@ class Parameter
   end
 
   def unique_description?
-    return true if @original_name.in? %i[explain size detailed active_only verbose]
+    return true if @original_name.in? %i[explain size detailed active_only verbose fields accept_data_loss include_defaults actions parent_task_id task_id]
     return true if @original_name == :index && spec.description.starts_with?('Comma-separated list of indices to')
     return true if @original_name == :index && spec.description.starts_with?('The name of the')
     return true if @original_name == :index && spec.description.starts_with?('The index in which')
@@ -91,6 +93,9 @@ class Parameter
     return true if @original_name == :_source_includes && spec.description.ends_with?('sub-request')
     return true if @original_name == :_source_excludes && spec.description.ends_with?('sub-request')
     return true if @original_name == :_source_excludes && spec.description.ends_with?('sub-request')
+    return true if @original_name == :preference && spec.description.ends_with?("'docs'.")
+    return true if @original_name == :create && spec.description.include?('dry-run')
+    return true if @original_name == :cause && spec.description.include?('creating/updating')
     return true if name == 'refresh_boolean'
     return true if spec.description.ends_with?('"params" or "docs".')
     false

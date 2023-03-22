@@ -98,7 +98,7 @@
       },
       "terminate_after":{
         "type":"number",
-        "description":"The maximum count for each shard, upon reaching which the query execution will terminate early"
+        "description":"The maximum number of documents to collect for each shard, upon reaching which the query execution will terminate early."
       }
     },
     "body":{

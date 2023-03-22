@@ -33,7 +33,7 @@ class ParamsRepository
     spec = param.spec.deep_dup
     spec.delete_field(:required) unless spec.required.nil?
     # TODO: Handle Collisions
-    # raise collision_message(name, spec) if @repo.include?(name) && @repo[name].spec != spec
+    raise collision_message(name, spec) if @repo.include?(name) && @repo[name].spec != spec
     @repo[name] = param
   end
 
@@ -46,7 +46,7 @@ class ParamsRepository
   private
 
   def collision_message(name, spec)
-    "#{name} has already been used \n" \
+    "\n#{name} has already been used \n" \
       "#{spec} \n" \
       "#{@repo[name].spec} \n"
   end
@@ -87,6 +87,25 @@ class ParamsRepository
       ),
       'refresh_boolean' => OpenStruct.new(
         type: 'boolean'
+      ),
+      'accept_data_loss' => OpenStruct.new(
+        type: 'boolean'
+      ),
+      'include_defaults' => OpenStruct.new(
+        type: 'boolean',
+        default: false
+      ),
+      'fields' => OpenStruct.new(
+        type: 'list'
+      ),
+      'actions' => OpenStruct.new(
+        type: 'list'
+      ),
+      'parent_task_id' => OpenStruct.new(
+        type: 'string'
+      ),
+      'task_id' => OpenStruct.new(
+        type: 'string'
       )
     }
   end

@@ -65,7 +65,7 @@
       },
       "preference":{
         "type":"string",
-        "description":"Specify the node or shard the operation should be performed on (default: random) .Applies to all returned documents unless otherwise specified in body \"params\" or \"docs\"."
+        "description":"Specify the node or shard the operation should be performed on (default: random). Applies to all returned documents unless otherwise specified in body \"params\" or \"docs\"."
       },
       "routing":{
         "type":"string",

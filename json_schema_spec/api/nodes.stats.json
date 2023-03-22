@@ -197,7 +197,7 @@
         "description":"Comma-separated list of fields for `fielddata` and `completion` index metric (supports wildcards)"
       },
       "groups":{
-        "type":"boolean",
+        "type":"list",
         "description":"Comma-separated list of search groups for `search` index metric"
       },
       "level":{

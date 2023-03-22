@@ -71,11 +71,11 @@
       },
       "preference":{
         "type":"string",
-        "description":"Specify the node or shard the operation should be performed on (default: random)."
+        "description":"Specify the node or shard the operation should be performed on (default: random)"
       },
       "routing":{
         "type":"string",
-        "description":"Routing value."
+        "description":"Routing value"
       },
       "realtime":{
         "type":"boolean",
