@@ -85,11 +85,11 @@
       },
       "if_seq_no":{
         "type":"number",
-        "description":"only perform the index operation if the last operation that has changed the document has the specified sequence number"
+        "description":"only perform the operation if the last operation that has changed the document has the specified sequence number"
       },
       "if_primary_term":{
         "type":"number",
-        "description":"only perform the index operation if the last operation that has changed the document has the specified primary term"
+        "description":"only perform the operation if the last operation that has changed the document has the specified primary term"
       },
       "pipeline":{
         "type":"string",

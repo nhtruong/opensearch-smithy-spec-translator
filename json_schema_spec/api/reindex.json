@@ -41,8 +41,7 @@
       },
       "scroll":{
         "type":"time",
-        "description":"Control how long to keep the search context alive",
-        "default":"5m"
+        "description":"Specify how long a consistent view of the index should be maintained for scrolled search"
       },
       "slices":{
         "type":"number|string",

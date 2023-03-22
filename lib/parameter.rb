@@ -63,6 +63,8 @@ class Parameter
     return @name = 'alias_names' if @original_name == :name && spec.description.starts_with?('Comma-separated list of alias names')
     return @name = 'stream_names' if @original_name == :name && spec.description.starts_with?('Comma-separated list of data streams')
     return @name = 'stream_name' if @original_name == :name && spec.description.starts_with?('The name of the data stream')
+    return @name = 'index_names' if @original_name == :name && spec.description.starts_with?('Comma-separated list of names or wildcard expressions')
+    return @name = 'index_name' if @original_name == :name && spec.description.starts_with?('The name of the index (it must be a concrete index name)')
     return @name = 'df_explain' if @original_name == :df && spec.description.starts_with?('The default')
     return @name = 'df_explain_snapshot' if @original_name == :ignore_unavailable && spec.description.starts_with?('Whether to ignore unavailable snapshots')
     return @name = 'stat_fields' if @original_name == :fields && spec.description.ends_with?('(supports wildcards)')
@@ -78,7 +80,8 @@ class Parameter
   end
 
   def unique_description?
-    return true if @original_name.in? %i[explain size detailed active_only verbose fields accept_data_loss include_defaults actions parent_task_id task_id]
+    return true if @original_name.in? %i[explain size detailed active_only verbose fields accept_data_loss
+                                         include_defaults actions parent_task_id task_id max_concurrent_shard_requests]
     return true if @original_name == :index && spec.description.starts_with?('Comma-separated list of indices to')
     return true if @original_name == :index && spec.description.starts_with?('The name of the')
     return true if @original_name == :index && spec.description.starts_with?('The index in which')
@@ -96,6 +99,8 @@ class Parameter
     return true if @original_name == :preference && spec.description.ends_with?("'docs'.")
     return true if @original_name == :create && spec.description.include?('dry-run')
     return true if @original_name == :cause && spec.description.include?('creating/updating')
+    return true if @original_name == :require_alias && spec.description.include?('require_alias')
+    return true if @original_name == :node_id && spec.description.exclude?('_local')
     return true if name == 'refresh_boolean'
     return true if spec.description.ends_with?('"params" or "docs".')
     false

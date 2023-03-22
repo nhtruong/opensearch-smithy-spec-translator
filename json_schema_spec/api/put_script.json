@@ -55,10 +55,6 @@
       "cluster_manager_timeout":{
         "type":"time",
         "description":"Operation timeout for connection to cluster-manager node"
-      },
-      "context":{
-        "type":"string",
-        "description":"Context name to compile script against"
       }
     },
     "body":{

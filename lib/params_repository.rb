@@ -57,6 +57,10 @@ class ParamsRepository
         type: 'integer',
         description: 'The throttle for this request in sub-requests per second. -1 means no throttle.'
       ),
+      'max_concurrent_shard_requests' => OpenStruct.new(
+        type: 'integer',
+        default: 5
+      ),
       'explain' => OpenStruct.new(
         type: 'boolean'
       ),
