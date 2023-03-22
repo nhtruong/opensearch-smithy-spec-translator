@@ -18,7 +18,7 @@ class ParamsRepository
   attr_reader :repo
 
   def initialize
-    @repo = custom_params
+    @repo = custom_params.to_h { |name, spec| [name, Parameter.new(name, spec, nil)] }
   end
 
   # @param [Array<Parameter>] params

@@ -24,7 +24,7 @@ class Parameter
     @pattern = '^([0-9]+)(?:d|h|m|s|ms|micros|nanos)$' if spec.type == 'time'
     spec.type = 'string' if spec.type == 'number|string'
     spec.type = 'integer' if spec.type == 'number'
-    spec.type = 'list' if spec.description.starts_with?('A comma-separated')
+    spec.type = 'list' if spec.description&.starts_with?('A comma-separated')
     @original_name = name
     @spec = spec
     @operation_group = operation_group
@@ -33,7 +33,7 @@ class Parameter
   end
 
   def smithy_type
-    return 'string' if spec.type == 'time'
+    return 'string' if type == 'time'
     spec.type
   end
 
@@ -148,6 +148,7 @@ class Parameter
   end
 
   def capture_default
+    return unless description.present?
     return unless default.nil? && description.downcase.include?('default')
     return if type == 'list'
     return spec.default = '1' if description.downcase.include?('defaults to 1')

@@ -53,6 +53,8 @@ class Translator
   end
 
   def generate_params(actions)
+    ap @params.filter_by_type(:integer)
+
     actions.each do |action|
       @params.add_many action.query_params
       @params.add_many action.operations.map(&:path_params).flatten
