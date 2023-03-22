@@ -16,10 +16,11 @@ require_relative 'structures_file_generator'
 
 # Translate legacy spec to smithy models
 class Translator
-  def initialize(input, output)
+  def initialize(input, output, overwrite: false)
     @input = Pathname input
     @output = Pathname(output).join('model')
     @params = ParamsRepository.new
+    @overwrite = overwrite
   end
 
   def translate(groups = nil)
@@ -67,6 +68,7 @@ class Translator
   def dump(relative_path, generator)
     # TODO: Handle Collisions with existing files
     path = @output.join(relative_path)
+    path = path.sub_ext "_#{path.extname}" if @overwrite && path.exist?
     path.parent.mkpath
     path.write generator.render
   end
