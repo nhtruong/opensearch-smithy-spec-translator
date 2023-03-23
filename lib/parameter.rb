@@ -30,6 +30,8 @@ class Parameter
     @operation_group = operation_group
     @deprecation = spec.deprecated
     capture_default
+
+    ap name if type == 'list' && spec.options.present?
   end
 
   def smithy_type
@@ -154,7 +156,7 @@ class Parameter
 
   def default_value
     capture_default
-    type.in?(%w[string enum]) ? "\"#{default}\"" : default
+    type.in?(%w[string enum time]) ? "\"#{default}\"" : default
   end
 
   def capture_default

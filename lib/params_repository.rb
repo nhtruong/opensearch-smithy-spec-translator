@@ -32,7 +32,6 @@ class ParamsRepository
     name = param.name
     spec = param.spec.deep_dup
     spec.delete_field(:required) unless spec.required.nil?
-    # TODO: Handle Collisions
     raise collision_message(name, spec) if @repo.include?(name) && @repo[name].spec != spec
     @repo[name] = param
   end

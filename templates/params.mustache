@@ -18,6 +18,21 @@ list {{smithy_name}} {
 
 {{/_blank_line}}
 {{/lists}}
+{{#enum_lists}}
+{{>params.traits}}
+list {{smithy_name}} {
+  member: {{member_smithy_name}}
+}
+
+enum {{member_smithy_name}} {
+{{#options}}
+  {{key}} = "{{value}}"
+{{/options}}
+}
+{{#_blank_line}}
+
+{{/_blank_line}}
+{{/enum_lists}}
 {{#enums}}
 {{>params.traits}}
 enum {{smithy_name}} {
