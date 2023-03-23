@@ -58,11 +58,12 @@ class Translator
       @params.add_many action.operations.map(&:path_params).flatten
     end
 
-    dump 'common_integers.smithy', ParamsFileGenerator.new(@params.filter_by_type(:integer), :simple)
-    dump 'common_strings.smithy',  ParamsFileGenerator.new(@params.filter_by_type(:string), :simple)
-    dump 'common_booleans.smithy', ParamsFileGenerator.new(@params.filter_by_type(:boolean), :simple)
-    dump 'common_lists.smithy',    ParamsFileGenerator.new(@params.filter_by_type(:list), :list)
-    dump 'common_enums.smithy',    ParamsFileGenerator.new(@params.filter_by_type(:enum), :enum)
+    dump 'common_integers.smithy',     ParamsFileGenerator.new(@params.filter_by_type(:integer), :simple)
+    dump 'common_strings.smithy',      ParamsFileGenerator.new(@params.filter_by_type(:string), :simple)
+    dump 'common_booleans.smithy',     ParamsFileGenerator.new(@params.filter_by_type(:boolean), :simple)
+    dump 'common_enums.smithy',        ParamsFileGenerator.new(@params.filter_by_type(:enum), :enum)
+    dump 'common_enum_lists.smithy',   ParamsFileGenerator.new(@params.filter_by_type(:enum_list), :enum_list)
+    dump 'common_string_lists.smithy', ParamsFileGenerator.new(@params.filter_by_type(:list), :string_list)
   end
 
   def dump(relative_path, generator)

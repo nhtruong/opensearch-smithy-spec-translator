@@ -30,12 +30,11 @@ class Parameter
     @operation_group = operation_group
     @deprecation = spec.deprecated
     capture_default
-
-    ap name if type == 'list' && spec.options.present?
   end
 
   def smithy_type
     return 'string' if type == 'time'
+    return 'enum_list' if type == 'list' && spec.options.present?
     spec.type
   end
 

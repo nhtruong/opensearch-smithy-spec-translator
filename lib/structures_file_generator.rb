@@ -12,8 +12,6 @@
 # Generator for structures.smithy
 class StructuresFileGenerator < BaseGenerator
   self.template_file = './templates/structures.mustache'
-  # TODO: Handle extra traits
-  # TODO: Handle lists whose members are of type enum
   attr_reader :action
 
   # @param [Action] action

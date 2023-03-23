@@ -35,8 +35,8 @@ class ParamsFileGenerator < BaseGenerator
     end
   end
 
-  def lists
-    return unless @category == :list
+  def string_lists
+    return unless @category == :string_list
     @params.map do |param|
       param.traits.merge({ smithy_name: param.smithy_name, _blank_line: param.name != @params.last.name })
     end
@@ -47,6 +47,18 @@ class ParamsFileGenerator < BaseGenerator
     @params.map do |param|
       param.traits.merge({
         smithy_name: param.smithy_name,
+        options: param.options,
+        _blank_line: param.name != @params.last.name
+      })
+    end
+  end
+
+  def enum_lists
+    return unless @category == :enum_list
+    @params.map do |param|
+      param.traits.merge({
+        smithy_name: param.smithy_name,
+        member_smithy_name: "#{param.smithy_name}Member",
         options: param.options,
         _blank_line: param.name != @params.last.name
       })

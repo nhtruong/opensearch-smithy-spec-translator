@@ -9,7 +9,7 @@ namespace OpenSearch
 
 {{/_blank_line}}
 {{/simples}}
-{{#lists}}
+{{#string_lists}}
 {{>params.traits}}
 list {{smithy_name}} {
   member: String
@@ -17,7 +17,7 @@ list {{smithy_name}} {
 {{#_blank_line}}
 
 {{/_blank_line}}
-{{/lists}}
+{{/string_lists}}
 {{#enum_lists}}
 {{>params.traits}}
 list {{smithy_name}} {
