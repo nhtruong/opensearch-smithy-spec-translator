@@ -34,13 +34,9 @@ class StructuresFileGenerator < BaseGenerator
       {
         name: param.original_name,
         type: param.smithy_name,
-        unique_description?: param.unique_description?,
-        description: param.documentation,
-        unique_default?: param.unique_default?,
-        default: param.default_value,
         required?: param.spec.required,
         _blank_line: param.name != action.query_params.last.name
-      }
+      }.merge unique_traits(param)
     end
   end
 
@@ -53,10 +49,20 @@ class StructuresFileGenerator < BaseGenerator
         path_params: operation.path_params&.map do |param|
                        { name: param.original_name,
                          type: param.smithy_name,
-                         _blank_line: param.name != operation.path_params.last.name }
+                         _blank_line: param.name != operation.path_params.last.name }.merge unique_traits(param)
                      end
       }
     end
+  end
+
+  def unique_traits(param)
+    {
+      unique_description?: param.unique_description?,
+      description: param.documentation,
+      unique_default?: param.unique_default?,
+      default: param.default_value,
+      unique_deprecation?: param.unique_deprecation?
+    }.merge(param.deprecation_info || {})
   end
 
   def output_structure

@@ -5,15 +5,10 @@ namespace OpenSearch
 structure {{common_query_structure}} {
 {{#query_params}}
   @httpQuery("{{name}}")
-  {{#unique_description?}}
-  @documentation("{{{description}}}")
-  {{/unique_description?}}
-  {{#unique_default?}}
-  @default({{{default}}})
-  {{/unique_default?}}
   {{#required?}}
   @required
   {{/required?}}
+  {{>structure.traits}}
   {{name}}: {{type}},
   {{#_blank_line}}
 
@@ -29,14 +24,15 @@ structure {{common_body_structure}} {}
 {{#input_structures}}
 @input
 structure {{structure_name}} with [{{common_query_structure}}{{#with_body}}, {{common_body_structure}}{{/with_body}}] {
-  {{#path_params}}
+{{#path_params}}
   @required
   @httpLabel
+  {{>structure.traits}}
   {{name}}: {{type}},
   {{#_blank_line}}
 
   {{/_blank_line}}
-  {{/path_params}}
+{{/path_params}}
 }
 
 {{/input_structures}}
