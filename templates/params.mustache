@@ -12,7 +12,7 @@ namespace OpenSearch
 {{#string_lists}}
 {{>params.traits}}
 list {{smithy_name}} {
-  member: String
+    member: String
 }
 {{#_blank_line}}
 
@@ -21,12 +21,12 @@ list {{smithy_name}} {
 {{#enum_lists}}
 {{>params.traits}}
 list {{smithy_name}} {
-  member: {{member_smithy_name}}
+    member: {{member_smithy_name}}
 }
 
 enum {{member_smithy_name}} {
 {{#options}}
-  {{key}} = "{{value}}"
+    {{key}} = "{{value}}"
 {{/options}}
 }
 {{#_blank_line}}
@@ -36,9 +36,9 @@ enum {{member_smithy_name}} {
 {{#enums}}
 {{>params.traits}}
 enum {{smithy_name}} {
-  {{#options}}
-  {{key}} = "{{value}}"
-  {{/options}}
+    {{#options}}
+    {{key}} = "{{value}}"
+    {{/options}}
 }
 {{#_blank_line}}
 

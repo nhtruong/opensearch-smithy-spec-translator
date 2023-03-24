@@ -58,7 +58,7 @@ class ParamsFileGenerator < BaseGenerator
     @params.map do |param|
       param.traits.merge({
         smithy_name: param.smithy_name,
-        member_smithy_name: "#{param.smithy_name}Member",
+        member_smithy_name: "#{param.smithy_name}_Member",
         options: param.options,
         _blank_line: param.name != @params.last.name
       })
