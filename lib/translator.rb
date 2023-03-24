@@ -16,6 +16,20 @@ require_relative 'structures_file_generator'
 
 # Translate legacy spec to smithy models
 class Translator
+  EXISTING_PATHS = %w[
+    _global/search/operations.smithy
+    _global/search/structures.smithy
+    indices/delete/operations.smithy
+    indices/delete/structures.smithy
+    indices/get_settings/operations.smithy
+    indices/get_settings/structures.smithy
+    indices/put_mapping/operations.smithy
+    indices/put_mapping/structures.smithy
+    indices/create/operations.smithy
+    indices/create/structures.smithy
+    common_enums.smithy
+  ].freeze
+
   def initialize(input, output, overwrite: false)
     @input = Pathname input
     @output = Pathname(output).join('model')
@@ -67,9 +81,8 @@ class Translator
   end
 
   def dump(relative_path, generator)
-    # TODO: Handle Collisions with existing files
     path = @output.join(relative_path)
-    path = path.sub_ext "_#{path.extname}" if @overwrite && path.exist?
+    path = path.sub_ext "_#{path.extname}" if @overwrite && relative_path.in?(EXISTING_PATHS)
     path.parent.mkpath
     path.write generator.render
   end
