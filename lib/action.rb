@@ -29,10 +29,7 @@ class Action
   def operations
     return @operations unless @operations.nil?
     ops = spec.url.paths.map { |path| path.methods.map { |method| { path: path.path, method: } } }.flatten
-    @operations = ops.map.with_index do |hash, index|
-      index = nil if ops.size == 1
-      Operation.new(operation_group, index, hash[:path], hash[:method], spec)
-    end
+    @operations = ops.map { |hash| Operation.new(operation_group, hash[:path], hash[:method], spec) }
   end
 
   def description
