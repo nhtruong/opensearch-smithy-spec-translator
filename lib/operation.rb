@@ -16,16 +16,18 @@ class Operation
   # @param [String] group
   # @param [String] path
   # @param [String] method
+  # @param [Boolean] uniform_method
   # @param [OpenStruct] spec
-  def initialize(group, path, method, spec)
+  def initialize(group, path, method, uniform_method, spec)
     @group = group
     @path = path
     @method = method
+    @uniform_method = uniform_method
     @spec = spec
   end
 
   def name
-    @name ||= [name_prefix, method.capitalize, name_suffix].compact.join '_'
+    @name ||= [name_prefix, @uniform_method ? nil : method.capitalize, name_suffix].compact.join '_'
   end
 
   def input_name
@@ -55,9 +57,6 @@ class Operation
     shortest = spec.url.paths.map { |path| (path.parts&.to_h&.keys || []).to_set }.min_by(&:size)
     diff = path_params&.map(&:original_name)&.to_set&.difference(shortest)
     return nil if diff.empty?
-    if diff.size > 1
-      puts @group, diff.to_a.join(',')
-    end
     suffix = diff.to_a.sort.map { |name| name.to_s.camelcase }.join
     "With#{suffix}"
   end

@@ -29,7 +29,8 @@ class Action
   def operations
     return @operations unless @operations.nil?
     ops = spec.url.paths.map { |path| path.methods.map { |method| { path: path.path, method: } } }.flatten
-    @operations = ops.map { |hash| Operation.new(operation_group, hash[:path], hash[:method], spec) }
+    uniform_method = ops.map { |hash| hash[:method] }.uniq.size == 1
+    @operations = ops.map { |hash| Operation.new(operation_group, hash[:path], hash[:method], uniform_method, spec) }
   end
 
   def description
