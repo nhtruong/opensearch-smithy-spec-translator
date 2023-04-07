@@ -13,6 +13,7 @@ require_relative 'params_repository'
 require_relative 'params_file_generator'
 require_relative 'operations_file_generator'
 require_relative 'structures_file_generator'
+require_relative 'opensearch_file_generator'
 
 # Translate legacy spec to smithy models
 class Translator
@@ -64,6 +65,7 @@ class Translator
     actions = pathnames.map { |pathname| Action.new pathname }
     generate_operations actions
     generate_params actions
+    dump 'opensearch.smithy', OpensearchFileGenerator.new(actions)
   end
 
   private

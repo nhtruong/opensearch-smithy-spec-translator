@@ -51,7 +51,7 @@ class Parameter
     return @name = 'repositories' if @original_name == :repository && spec.type == 'list'
     return @name = 'routings' if @original_name == :routing && spec.type == 'list'
     return @name = 'snapshots' if @original_name == :snapshot && spec.type == 'list'
-    return @name = 'document_id' if @original_name == :id && spec.description == 'Document ID'
+    return @name = 'document_id' if @original_name == :id && spec.description.starts_with?('Document ID')
     return @name = 'script_id' if @original_name == :id && spec.description == 'Script ID'
     return @name = 'pipeline_id' if @original_name == :id && spec.description == 'Pipeline ID'
     return @name = 'pipeline_ids' if @original_name == :id && spec.description.starts_with?('Comma-separated list of pipeline ids')
@@ -102,6 +102,7 @@ class Parameter
     return true if @original_name == :cause && spec.description.include?('creating/updating')
     return true if @original_name == :require_alias && spec.description.include?('require_alias')
     return true if @original_name == :node_id && spec.description.exclude?('_local')
+    return true if @original_name == :id && spec.description.include?('a doc param should be supplied')
     return true if name == 'refresh_boolean'
     return true if spec.description.ends_with?('"params" or "docs".')
     false
