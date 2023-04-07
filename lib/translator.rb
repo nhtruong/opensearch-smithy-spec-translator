@@ -19,6 +19,22 @@ class Translator
   EXISTING_PATHS = %w[
     _global/search/operations.smithy
     _global/search/structures.smithy
+    _global/info/operations.smithy
+    _global/info/structures.smithy
+    _global/get/operations.smithy
+    _global/get/structures.smithy
+    _global/get_source/operations.smithy
+    _global/get_source/structures.smithy
+    cat/nodes/operations.smithy
+    cat/nodes/structures.smithy
+    cat/indices/operations.smithy
+    cat/indices/structures.smithy
+    cluster/put_settings/operations.smithy
+    cluster/put_settings/structures.smithy
+    cluster/get_settings/operations.smithy
+    cluster/get_settings/structures.smithy
+    indices/update_aliases/operations.smithy
+    indices/update_aliases/structures.smithy
     indices/delete/operations.smithy
     indices/delete/structures.smithy
     indices/get_settings/operations.smithy
@@ -27,6 +43,8 @@ class Translator
     indices/put_mapping/structures.smithy
     indices/create/operations.smithy
     indices/create/structures.smithy
+    remote_store/restore/operations.smithy
+    remote_store/restore/structures.smithy
     common_enums.smithy
   ].freeze
 
@@ -82,6 +100,7 @@ class Translator
 
   def dump(relative_path, generator)
     path = @output.join(relative_path)
+    return unless relative_path.starts_with?('common_') || relative_path.in?(EXISTING_PATHS)
     path = path.sub_ext "_#{path.extname}" if @overwrite && relative_path.in?(EXISTING_PATHS)
     path.parent.mkpath
     path.write generator.render

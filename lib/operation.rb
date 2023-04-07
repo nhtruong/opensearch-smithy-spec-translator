@@ -55,6 +55,9 @@ class Operation
     shortest = spec.url.paths.map { |path| (path.parts&.to_h&.keys || []).to_set }.min_by(&:size)
     diff = path_params&.map(&:original_name)&.to_set&.difference(shortest)
     return nil if diff.empty?
+    if diff.size > 1
+      puts @group, diff.to_a.join(',')
+    end
     suffix = diff.to_a.sort.map { |name| name.to_s.camelcase }.join
     "With#{suffix}"
   end
