@@ -109,6 +109,14 @@ class ParamsRepository
       ),
       'task_id' => OpenStruct.new(
         type: 'string'
+      ),
+      'expand_wildcards' => OpenStruct.new(
+        type: 'enum',
+        options: %w[open closed hidden none all],
+        description: 'Whether to expand wildcard expression to concrete indices that are open, closed or both.'
+      ),
+      'wait_for_active_shards' => OpenStruct.new(
+        type: 'string'
       )
     }
   end

@@ -2,6 +2,7 @@
 $version: "2"
 namespace OpenSearch
 
+@mixin
 structure {{common_query_structure}} {
 {{#query_params}}
     @httpQuery("{{name}}")
@@ -18,6 +19,7 @@ structure {{common_query_structure}} {
 
 {{#common_body_structure}}
 // TODO: Fill in Body Parameters
+@mixin
 structure {{common_body_structure}} {}
 {{/common_body_structure}}
 
@@ -37,5 +39,4 @@ structure {{structure_name}} with [{{common_query_structure}}{{#with_body}}, {{c
 
 {{/input_structures}}
 // TODO: Fill in Output Structure
-@output
 structure {{output_structure}} {}

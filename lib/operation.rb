@@ -31,7 +31,7 @@ class Operation
   end
 
   def input_name
-    [name, 'Input'].compact.join('_')
+    [name, 'Input'].join('_')
   end
 
   def output_name
@@ -46,8 +46,6 @@ class Operation
   def with_body?
     @method == 'POST' || @method == 'PUT'
   end
-
-  private
 
   def name_prefix
     @name_prefix ||= @group.gsub('.', '_').camelcase

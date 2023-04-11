@@ -41,7 +41,6 @@ class Parameter
   def name
     return @name if @name
     return @name = "#{@operation_group.gsub('.', '_')}_#{@original_name}" if @original_name.in? %i[metric dry_run]
-    return @name = "#{@original_name}_#{spec.default}" if @original_name == :expand_wildcards
     return @name = "#{@original_name}_#{spec.type}" if @original_name == :refresh
     return @name = "#{@original_name}_#{spec.default}" if @original_name == :wait_for_completion
     return @name = 'with_version' if @original_name == :version && spec.type == 'boolean'
@@ -81,7 +80,7 @@ class Parameter
   end
 
   def unique_description?
-    return true if @original_name.in? %i[explain size detailed active_only verbose fields accept_data_loss
+    return true if @original_name.in? %i[explain size detailed active_only verbose fields accept_data_loss wait_for_active_shards
                                          include_defaults actions parent_task_id task_id max_concurrent_shard_requests]
     return true if @original_name == :index && spec.description.starts_with?('Comma-separated list of indices to')
     return true if @original_name == :index && spec.description.starts_with?('The name of the')
@@ -109,7 +108,7 @@ class Parameter
   end
 
   def unique_default?
-    return true if @original_name.in? %i[explain size detailed]
+    return true if @original_name.in? %i[explain size detailed expand_wildcards wait_for_active_shards]
     return true if @original_name == :requests_per_second
     return true if @original_name == :realtime && spec.description.starts_with?('Specifies if')
     false
@@ -121,6 +120,7 @@ class Parameter
   end
 
   def skip_repo?
+    return true if original_name.in?(%i[expand_wildcards])
     return true if name == 'master_timeout' && spec.deprecated.nil?
     return true if name == 'wait_for_active_shards' && !spec.description.downcase.include?('default to')
     return true if name.in? %w[requests_per_second ignore_unavailable allow_no_indices]

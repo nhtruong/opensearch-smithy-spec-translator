@@ -59,7 +59,7 @@ class StructuresFileGenerator < BaseGenerator
     {
       unique_description?: param.unique_description?,
       description: param.documentation,
-      unique_default?: param.unique_default?,
+      with_default: !param.default.nil?,
       default: param.default_value,
       unique_deprecation?: param.unique_deprecation?
     }.merge(param.deprecation_info || {})

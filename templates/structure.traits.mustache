@@ -1,9 +1,9 @@
 {{#unique_description?}}
 @documentation("{{{description}}}")
 {{/unique_description?}}
-{{#unique_default?}}
+{{#with_default}}
 @default({{{default}}})
-{{/unique_default?}}
+{{/with_default}}
 {{#unique_deprecation?}}
 @deprecated
 @vendorExtensions(

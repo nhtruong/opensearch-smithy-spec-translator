@@ -65,7 +65,7 @@ class Translator
     actions = pathnames.map { |pathname| Action.new pathname }
     generate_operations actions
     generate_params actions
-    dump 'opensearch.smithy', OpensearchFileGenerator.new(actions)
+    # dump 'opensearch.smithy', OpensearchFileGenerator.new(actions)
   end
 
   private
@@ -102,8 +102,8 @@ class Translator
 
   def dump(relative_path, generator)
     path = @output.join(relative_path)
-    return unless relative_path.starts_with?('common_') || relative_path.in?(EXISTING_PATHS)
-    path = path.sub_ext "_#{path.extname}" if @overwrite && relative_path.in?(EXISTING_PATHS)
+    return if relative_path.starts_with?('common_') || !path.exist?
+    # path = path.sub_ext "_#{path.extname}"
     path.parent.mkpath
     path.write generator.render
   end

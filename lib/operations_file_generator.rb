@@ -28,6 +28,8 @@ class OperationsFileGenerator < BaseGenerator
     action.operations.map do |operation|
       {
         operation_group: action.operation_group,
+        readonly: operation.method == 'GET',
+        idempotent: operation.method == 'PUT',
         operation_name: operation.name,
         input_name: operation.input_name,
         output_name: operation.output_name,

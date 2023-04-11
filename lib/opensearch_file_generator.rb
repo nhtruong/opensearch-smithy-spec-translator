@@ -23,6 +23,6 @@ class OpensearchFileGenerator < BaseGenerator
   end
 
   def operations
-    actions.map(&:operations).flatten.map(&:name).sort.map { |name| { name: } }
+    @actions.map(&:operations).flatten.map(&:name).sort.map { |name| { name: } }
   end
 end

@@ -12,6 +12,12 @@ namespace OpenSearch
     "x-operation-group": "{{operation_group}}",
     "x-version-added": "1.0"
 )
+{{#readonly}}
+@readonly
+{{/readonly}}
+{{#idempotent}}
+@idempotent
+{{/idempotent}}
 @http(method: "{{method}}", uri: "{{uri}}")
 @documentation("{{{description}}}")
 operation {{operation_name}} {
