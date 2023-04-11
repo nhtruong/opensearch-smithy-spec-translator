@@ -32,8 +32,9 @@ class StructuresFileGenerator < BaseGenerator
   def query_params
     action.query_params.map do |param|
       {
-        name: param.original_name,
-        type: param.smithy_name,
+        original_name: param.original_name,
+        param_name: param.param_name,
+        smithy_name: param.smithy_name,
         required?: param.spec.required,
         _blank_line: param.name != action.query_params.last.name
       }.merge unique_traits(param)
@@ -47,8 +48,8 @@ class StructuresFileGenerator < BaseGenerator
         common_query_structure:,
         with_body: operation.with_body?,
         path_params: operation.path_params&.map do |param|
-                       { name: param.original_name,
-                         type: param.smithy_name,
+                       { original_name: param.original_name,
+                         smithy_name: param.smithy_name,
                          _blank_line: param.name != operation.path_params.last.name }.merge unique_traits(param)
                      end
       }

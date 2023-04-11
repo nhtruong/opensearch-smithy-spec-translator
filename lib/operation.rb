@@ -40,7 +40,7 @@ class Operation
 
   def path_params
     @path_params ||= spec.url.paths.find { |path| path.path == @path }.parts.to_h
-                          &.map { |name, spec| Parameter.new name, spec, @group }
+                          &.map { |name, spec| Parameter.new name, spec, @group, 'path' }
   end
 
   def with_body?

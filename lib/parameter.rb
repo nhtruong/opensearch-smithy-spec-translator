@@ -14,14 +14,14 @@ require_relative 'action'
 
 # Generator for operations.smithy
 class Parameter
-  attr_reader :spec, :original_name
+  attr_reader :spec, :original_name, :comma_separated_list, :param_type
 
   delegate :type, :description, :default, to: :spec
 
   # @param [String] name
   # @param [OpenStruct] spec
-  def initialize(name, spec, operation_group)
-    @pattern = '^([0-9]+)(?:d|h|m|s|ms|micros|nanos)$' if spec.type == 'time'
+  def initialize(name, spec, operation_group, param_type = 'query')
+    @param_type = param_type
     spec.type = 'string' if spec.type == 'number|string'
     spec.type = 'integer' if spec.type == 'number'
     spec.type = 'list' if spec.description&.starts_with?('A comma-separated')
@@ -32,10 +32,16 @@ class Parameter
     capture_default
   end
 
-  def smithy_type
-    return 'string' if type == 'time'
-    return 'enum_list' if type == 'list' && spec.options.present?
-    spec.type
+  def pattern
+    return '^([0-9]+)(?:d|h|m|s|ms|micros|nanos)$' if spec.type == 'time'
+    return enum_path_pattern if spec.options.present? && param_type == 'path'
+    return '^[^_][\\\\d\\\\w-*]*$' if param_type == 'path'
+    nil
+  end
+
+  def enum_path_pattern
+    members = spec.options.map { |option| Regexp.escape(option) }.join('|')
+    spec.type == 'list' ? "^((#{members}),)*(#{members})$" : "^(#{members})$"
   end
 
   def name
@@ -77,6 +83,27 @@ class Parameter
     return @name = 'sample_type' if @original_name == :type && spec.type == 'enum'
     return @name = 'sample_type' if @original_name == :type && spec.type == 'enum'
     @name = @original_name.to_s
+  end
+
+  def repo_id
+    "#{param_type}_#{name}"
+  end
+
+  def param_name
+    return "query_#{original_name}" if param_type == 'query'
+    original_name.to_s
+  end
+
+  def smithy_name
+    return "path_#{name}".camelcase if param_type == 'path'
+    name.to_s.camelcase
+  end
+
+  def smithy_type
+    return 'string' if param_type == 'path'
+    return 'string' if type == 'time'
+    return 'enum_list' if type == 'list' && spec.options.present?
+    spec.type
   end
 
   def unique_description?
@@ -127,19 +154,26 @@ class Parameter
     false
   end
 
-  def smithy_name
-    name.to_s.camelcase
-  end
-
   def traits
     {
       default: default_value,
       with_default: !default.nil?,
       deprecated: (!!@deprecation unless @deprecation.nil?),
-      deprecation_info:,
+      extensions:,
+      with_extensions:,
       documentation:,
-      pattern: @pattern
+      pattern:
     }
+  end
+
+  def extensions
+    { 'comma-separated-list': (true if type == 'list' && param_type == 'path'),
+      'enum-options': (spec.options if param_type == 'path') }
+      .merge(deprecation_info).compact.map { |k, v| { key: k, value: v } }
+  end
+
+  def with_extensions
+    extensions.any?
   end
 
   def options
@@ -173,8 +207,8 @@ class Parameter
   end
 
   def deprecation_info
-    return nil unless @deprecation.is_a? OpenStruct
-    { deprecation_message: @deprecation.description,
-      deprecation_version: @deprecation.version }
+    return {} unless @deprecation.is_a? OpenStruct
+    { 'deprecation-message': "\"#{@deprecation.description}\"",
+      'version-deprecated': "\"#{@deprecation.version}\"" }
   end
 end

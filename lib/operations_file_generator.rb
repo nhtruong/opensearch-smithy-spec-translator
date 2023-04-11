@@ -29,7 +29,7 @@ class OperationsFileGenerator < BaseGenerator
       {
         operation_group: action.operation_group,
         readonly: operation.method == 'GET',
-        idempotent: operation.method == 'PUT',
+        idempotent: operation.method.in?(%w[PUT DELETE]),
         operation_name: operation.name,
         input_name: operation.input_name,
         output_name: operation.output_name,

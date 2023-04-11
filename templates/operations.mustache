@@ -18,6 +18,7 @@ namespace OpenSearch
 {{#idempotent}}
 @idempotent
 {{/idempotent}}
+@suppress(["HttpUriConflict"])
 @http(method: "{{method}}", uri: "{{uri}}")
 @documentation("{{{description}}}")
 operation {{operation_name}} {

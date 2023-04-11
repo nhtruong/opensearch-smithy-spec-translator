@@ -18,7 +18,9 @@ class ParamsRepository
   attr_reader :repo
 
   def initialize
-    @repo = custom_params.to_h { |name, spec| [name, Parameter.new(name, spec, nil)] }
+    @repo = custom_params.to_h do |name, spec|
+      [name, Parameter.new(name, spec, nil, name.in?(%w[task_id]) ? 'path' : 'query')]
+    end
   end
 
   # @param [Array<Parameter>] params
@@ -29,17 +31,17 @@ class ParamsRepository
   # @param [Parameter] param
   def add_one(param)
     return if param.unique_description? || param.unique_deprecation? || param.skip_repo?
-    name = param.name
+    repo_id = param.repo_id
     spec = param.spec.deep_dup
     spec.delete_field(:required) unless spec.required.nil?
-    raise collision_message(name, spec) if @repo.include?(name) && @repo[name].spec != spec
-    @repo[name] = param
+    raise collision_message(repo_id, spec) if @repo.include?(repo_id) && @repo[repo_id].spec != spec
+    @repo[repo_id] = param
   end
 
   def filter_by_type(type)
     @repo.values
          .select { |param| param.smithy_type == type.to_s }
-         .sort_by { |param| [param.type, param.name] }
+         .sort_by { |param| [param.param_type, param.type, param.smithy_name] }
   end
 
   private
@@ -116,6 +118,12 @@ class ParamsRepository
         description: 'Whether to expand wildcard expression to concrete indices that are open, closed or both.'
       ),
       'wait_for_active_shards' => OpenStruct.new(
+        type: 'string'
+      ),
+      'index_names' => OpenStruct.new(
+        type: 'list'
+      ),
+      'index_name' => OpenStruct.new(
         type: 'string'
       )
     }

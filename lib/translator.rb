@@ -102,7 +102,7 @@ class Translator
 
   def dump(relative_path, generator)
     path = @output.join(relative_path)
-    return if relative_path.starts_with?('common_') || !path.exist?
+    return unless relative_path.start_with?('common')
     # path = path.sub_ext "_#{path.extname}"
     path.parent.mkpath
     path.write generator.render

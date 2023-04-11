@@ -5,12 +5,12 @@ namespace OpenSearch
 @mixin
 structure {{common_query_structure}} {
 {{#query_params}}
-    @httpQuery("{{name}}")
+    @httpQuery("{{original_name}}")
     {{#required?}}
     @required
     {{/required?}}
     {{>structure.traits}}
-    {{name}}: {{type}},
+    {{param_name}}: {{smithy_name}},
     {{#_blank_line}}
 
     {{/_blank_line}}
@@ -30,7 +30,7 @@ structure {{structure_name}} with [{{common_query_structure}}{{#with_body}}, {{c
     @required
     @httpLabel
     {{>structure.traits}}
-    {{name}}: {{type}},
+    {{original_name}}: {{smithy_name}},
     {{#_blank_line}}
 
     {{/_blank_line}}
