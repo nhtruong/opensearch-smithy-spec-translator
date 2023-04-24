@@ -46,7 +46,6 @@ class Translator
     indices/create/structures.smithy
     remote_store/restore/operations.smithy
     remote_store/restore/structures.smithy
-    common_enums.smithy
   ].freeze
 
   def initialize(input, output, overwrite: false)
@@ -102,7 +101,7 @@ class Translator
 
   def dump(relative_path, generator)
     path = @output.join(relative_path)
-    return unless relative_path.start_with?('common')
+    return unless relative_path.include?('structures') && relative_path.in?(EXISTING_PATHS)
     # path = path.sub_ext "_#{path.extname}"
     path.parent.mkpath
     path.write generator.render

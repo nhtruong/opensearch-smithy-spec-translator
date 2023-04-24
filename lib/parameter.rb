@@ -34,14 +34,8 @@ class Parameter
 
   def pattern
     return '^([0-9]+)(?:d|h|m|s|ms|micros|nanos)$' if spec.type == 'time'
-    return enum_path_pattern if spec.options.present? && param_type == 'path'
     return '^[^_][\\\\d\\\\w-*]*$' if param_type == 'path'
     nil
-  end
-
-  def enum_path_pattern
-    members = spec.options.map { |option| Regexp.escape(option) }.join('|')
-    spec.type == 'list' ? "^((#{members}),)*(#{members})$" : "^(#{members})$"
   end
 
   def name
@@ -167,7 +161,7 @@ class Parameter
   end
 
   def extensions
-    { 'comma-separated-list': (true if type == 'list' && param_type == 'path'),
+    { 'data-type': ("\"#{type}\"" if type == 'time' || (param_type == 'path' && !type.in?(%w[string integer]))),
       'enum-options': (spec.options if param_type == 'path') }
       .merge(deprecation_info).compact.map { |k, v| { key: k, value: v } }
   end

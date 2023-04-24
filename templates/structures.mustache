@@ -10,7 +10,7 @@ structure {{common_query_structure}} {
     @required
     {{/required?}}
     {{>structure.traits}}
-    {{param_name}}: {{smithy_name}},
+    {{original_name}}: {{smithy_name}},
     {{#_blank_line}}
 
     {{/_blank_line}}
@@ -19,13 +19,12 @@ structure {{common_query_structure}} {
 
 {{#common_body_structure}}
 // TODO: Fill in Body Parameters
-@mixin
 structure {{common_body_structure}} {}
 {{/common_body_structure}}
 
 {{#input_structures}}
 @input
-structure {{structure_name}} with [{{common_query_structure}}{{#with_body}}, {{common_body_structure}}{{/with_body}}] {
+structure {{structure_name}} with [{{common_query_structure}}] {
 {{#path_params}}
     @required
     @httpLabel
@@ -35,6 +34,10 @@ structure {{structure_name}} with [{{common_query_structure}}{{#with_body}}, {{c
 
     {{/_blank_line}}
 {{/path_params}}
+{{#with_body}}
+    @httpPayload
+    content: {{common_body_structure}},
+{{/with_body}}
 }
 
 {{/input_structures}}
