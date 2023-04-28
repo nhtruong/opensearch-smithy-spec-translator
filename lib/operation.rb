@@ -11,7 +11,7 @@
 
 # API Operation
 class Operation
-  attr_reader :path, :method, :spec
+  attr_reader :path, :method, :spec, :deprecation
 
   # @param [String] group
   # @param [String] path
@@ -24,6 +24,7 @@ class Operation
     @method = method
     @uniform_method = uniform_method
     @spec = spec
+    @deprecation = spec.url.paths.find { |p| p.path == path }&.deprecated
   end
 
   def name

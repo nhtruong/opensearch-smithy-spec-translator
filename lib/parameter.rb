@@ -153,8 +153,8 @@ class Parameter
       default: default_value,
       with_default: !default.nil?,
       deprecated: (!!@deprecation unless @deprecation.nil?),
+      with_extensions: extensions.any?,
       extensions:,
-      with_extensions:,
       documentation:,
       pattern:
     }
@@ -164,10 +164,6 @@ class Parameter
     { 'data-type': ("\"#{type}\"" if type == 'time' || (param_type == 'path' && !type.in?(%w[string integer]))),
       'enum-options': (spec.options if param_type == 'path') }
       .merge(deprecation_info).compact.map { |k, v| { key: k, value: v } }
-  end
-
-  def with_extensions
-    extensions.any?
   end
 
   def options

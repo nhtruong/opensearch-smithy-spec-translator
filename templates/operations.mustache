@@ -9,9 +9,13 @@ use opensearch.openapi#vendorExtensions
 )
 
 {{#operations}}
+{{#deprecated}}
+@deprecated
+{{/deprecated}}
 @vendorExtensions(
-    "x-operation-group": "{{operation_group}}",
-    "x-version-added": "1.0"
+    {{#extensions}}
+    "x-{{{key}}}": "{{{value}}}",
+    {{/extensions}}
 )
 {{#readonly}}
 @readonly
@@ -26,5 +30,7 @@ operation {{operation_name}} {
     input: {{input_name}},
     output: {{output_name}}
 }
+{{#_blank_line}}
 
+{{/_blank_line}}
 {{/operations}}

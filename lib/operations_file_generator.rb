@@ -35,8 +35,23 @@ class OperationsFileGenerator < BaseGenerator
         output_name: operation.output_name,
         method: operation.method,
         uri: operation.path,
-        description: action.description
+        description: action.description,
+        deprecated: (!!operation.deprecation unless operation.deprecation.nil?),
+        extensions: extensions(operation),
+        _blank_line: operation != action.operations.last
       }
     end
+  end
+
+  def extensions(operation)
+    { 'operation-group': action.operation_group,
+      'version-added': '1.0' }
+      .merge(deprecation_info(operation)).compact.map { |k, v| { key: k, value: v } }
+  end
+
+  def deprecation_info(operation)
+    return {} unless operation.deprecation.is_a? OpenStruct
+    { 'deprecation-message': operation.deprecation.description,
+      'version-deprecated': operation.deprecation.version }
   end
 end
