@@ -18,32 +18,38 @@ require_relative 'opensearch_file_generator'
 # Translate legacy spec to smithy models
 class Translator
   EXISTING_PATHS = %w[
-    _global/search/operations.smithy
-    _global/search/structures.smithy
-    _global/info/operations.smithy
-    _global/info/structures.smithy
+    common_booleans.smithy
+    common_enum_lists.smithy
+    common_enums.smithy
+    common_integers.smithy
+    common_string_lists.smithy
+    common_strings.smithy
     _global/get/operations.smithy
     _global/get/structures.smithy
     _global/get_source/operations.smithy
     _global/get_source/structures.smithy
-    cat/nodes/operations.smithy
-    cat/nodes/structures.smithy
+    _global/info/operations.smithy
+    _global/info/structures.smithy
+    _global/search/operations.smithy
+    _global/search/structures.smithy
     cat/indices/operations.smithy
     cat/indices/structures.smithy
-    cluster/put_settings/operations.smithy
-    cluster/put_settings/structures.smithy
+    cat/nodes/operations.smithy
+    cat/nodes/structures.smithy
     cluster/get_settings/operations.smithy
     cluster/get_settings/structures.smithy
-    indices/update_aliases/operations.smithy
-    indices/update_aliases/structures.smithy
+    cluster/put_settings/operations.smithy
+    cluster/put_settings/structures.smithy
+    indices/create/operations.smithy
+    indices/create/structures.smithy
     indices/delete/operations.smithy
     indices/delete/structures.smithy
     indices/get_settings/operations.smithy
     indices/get_settings/structures.smithy
     indices/put_mapping/operations.smithy
     indices/put_mapping/structures.smithy
-    indices/create/operations.smithy
-    indices/create/structures.smithy
+    indices/update_aliases/operations.smithy
+    indices/update_aliases/structures.smithy
     remote_store/restore/operations.smithy
     remote_store/restore/structures.smithy
   ].freeze
@@ -100,9 +106,8 @@ class Translator
   end
 
   def dump(relative_path, generator)
+    return if relative_path.in?(EXISTING_PATHS)
     path = @output.join(relative_path)
-    return unless relative_path.include?('structures') && relative_path.in?(EXISTING_PATHS)
-    # path = path.sub_ext "_#{path.extname}"
     path.parent.mkpath
     path.write generator.render
   end
