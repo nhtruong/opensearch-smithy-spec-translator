@@ -31,6 +31,7 @@ class Action
     ops = spec.url.paths.map { |path| path.methods.map { |method| { path: path.path, method: } } }.flatten
     uniform_method = ops.map { |hash| hash[:method] }.uniq.size == 1
     @operations = ops.map { |hash| Operation.new(operation_group, hash[:path], hash[:method], uniform_method, spec) }
+                     .sort_by { |op| op.path_params.size.to_s + op.path.split('/').sort.join('/') }
   end
 
   def description

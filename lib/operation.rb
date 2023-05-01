@@ -27,8 +27,12 @@ class Operation
     @deprecation = spec.url.paths.find { |p| p.path == path }&.deprecated
   end
 
+  def deprecated
+    !!deprecation unless deprecation.nil?
+  end
+
   def name
-    @name ||= [name_prefix, @uniform_method ? nil : method.capitalize, name_suffix].compact.join '_'
+    @name ||= [name_prefix, @uniform_method ? nil : method.capitalize, name_suffix, disambiguator].compact.join '_'
   end
 
   def input_name
@@ -58,5 +62,18 @@ class Operation
     return nil if diff.empty?
     suffix = diff.to_a.sort.map { |name| name.to_s.camelcase }.join
     "With#{suffix}"
+  end
+
+  def disambiguator
+    case @group
+    when 'nodes.hot_threads'
+      return if deprecation.nil?
+      tail = nil
+      tail = :Dash if path.include?('hot_threads')
+      tail ||= :Cluster if path.include?('cluster')
+      ['Deprecated', tail].compact.join
+    when 'indices.delete_alias', 'indices.put_alias'
+      'Plural' if path.include?('_aliases')
+    end
   end
 end

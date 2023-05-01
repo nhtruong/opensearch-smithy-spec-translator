@@ -36,7 +36,7 @@ class OperationsFileGenerator < BaseGenerator
         method: operation.method,
         uri: operation.path,
         description: action.description,
-        deprecated: (!!operation.deprecation unless operation.deprecation.nil?),
+        deprecated: operation.deprecated,
         extensions: extensions(operation),
         _blank_line: operation != action.operations.last
       }
