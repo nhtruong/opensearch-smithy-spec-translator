@@ -1,6 +1,9 @@
 {{license_header}}
 $version: "2"
 namespace OpenSearch
+{{#bulk_body}}
+use opensearch.openapi#vendorExtensions
+{{/bulk_body}}
 
 @mixin
 structure {{common_query_structure}} {
@@ -19,6 +22,11 @@ structure {{common_query_structure}} {
 
 {{#common_body_structure}}
 // TODO: Fill in Body Parameters
+{{#bulk_body}}
+@vendorExtensions(
+    "x-serialize": "bulk"
+)
+{{/bulk_body}}
 structure {{common_body_structure}} {}
 {{/common_body_structure}}
 

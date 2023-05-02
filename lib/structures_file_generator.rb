@@ -29,6 +29,10 @@ class StructuresFileGenerator < BaseGenerator
     "#{action.operation_group.gsub('.', '_').camelcase}_BodyParams"
   end
 
+  def bulk_body
+    action.spec.body&.serialize == 'bulk'
+  end
+
   def query_params
     action.query_params.map do |param|
       {
