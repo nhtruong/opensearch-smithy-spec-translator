@@ -20,7 +20,7 @@
             },
             "id":{
               "type":"string",
-              "description":"Document Id. When not specified a doc param should be supplied."
+              "description":"Document ID. When not specified a doc param should be supplied."
             }
           }
         },

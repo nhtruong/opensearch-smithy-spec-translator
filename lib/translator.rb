@@ -46,6 +46,8 @@ class Translator
     indices/delete/structures.smithy
     indices/get_settings/operations.smithy
     indices/get_settings/structures.smithy
+    indices/get_mapping/operations.smithy
+    indices/get_mapping/structures.smithy
     indices/put_mapping/operations.smithy
     indices/put_mapping/structures.smithy
     indices/update_aliases/operations.smithy

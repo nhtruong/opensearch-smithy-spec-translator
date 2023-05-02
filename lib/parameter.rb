@@ -67,7 +67,6 @@ class Parameter
     return @name = 'index_name' if @original_name == :name && spec.description.starts_with?('The name of the index (it must be a concrete index name)')
     return @name = 'df_explain' if @original_name == :df && spec.description.starts_with?('The default')
     return @name = 'df_explain_snapshot' if @original_name == :ignore_unavailable && spec.description.starts_with?('Whether to ignore unavailable snapshots')
-    return @name = 'stat_fields' if @original_name == :fields && spec.description.ends_with?('(supports wildcards)')
     return @name = 'cluster_health_level' if @original_name == :level && spec.description == 'Specify the level of detail for returned information'
     return @name = 'indicies_stat_level' if @original_name == :level && spec.description == 'Return stats aggregated at cluster, index or shard level'
     return @name = 'nodes_stat_level' if @original_name == :level && spec.description == 'Return indices stats aggregated at index, node or shard level'
