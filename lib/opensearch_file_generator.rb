@@ -18,7 +18,7 @@ class OpensearchFileGenerator < BaseGenerator
 
   # @param [Array<Action>] actions
   def initialize(actions)
-    @action = actions
+    @actions = actions
     super
   end
 

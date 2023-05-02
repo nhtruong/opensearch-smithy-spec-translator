@@ -13,18 +13,8 @@ use aws.protocols#restJson1
 service OpenSearch {
     version: "2021-11-23",
     operations: [
-    {{#operations}}
-    {{name}},
-    {{/operations}}
+        {{#operations}}
+        {{name}},
+        {{/operations}}
     ]
-}
-
-
-@trait(
-    selector: ":is(simpleType, list, map, structure, union, operation, member)"
-)
-map vendorExtensions {
-    @pattern("^x-.+$")
-    key: String
-    value: Document
 }

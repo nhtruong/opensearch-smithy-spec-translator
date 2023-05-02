@@ -72,7 +72,7 @@ class Translator
     actions = pathnames.map { |pathname| Action.new pathname }
     generate_operations actions
     generate_params actions
-    # dump 'opensearch.smithy', OpensearchFileGenerator.new(actions)
+    dump 'opensearch.smithy', OpensearchFileGenerator.new(actions)
   end
 
   private
