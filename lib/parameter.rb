@@ -83,9 +83,8 @@ class Parameter
     "#{param_type}_#{name}"
   end
 
-  def param_name
-    return "query_#{original_name}" if param_type == 'query'
-    original_name.to_s
+  def param_name(taken_names)
+    taken_names.include?(original_name) ? "query_#{original_name}" : original_name.to_s
   end
 
   def smithy_name

@@ -33,7 +33,7 @@ class StructuresFileGenerator < BaseGenerator
     action.query_params.map do |param|
       {
         original_name: param.original_name,
-        param_name: param.param_name,
+        param_name: param.param_name(action.path_param_names),
         smithy_name: param.smithy_name,
         required?: param.spec.required,
         _blank_line: param.name != action.query_params.last.name

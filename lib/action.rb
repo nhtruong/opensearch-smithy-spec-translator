@@ -34,6 +34,10 @@ class Action
                      .sort_by { |op| op.path_params.size.to_s + op.path.split('/').sort.join('/') }
   end
 
+  def path_param_names
+    @path_param_names ||= operations.map(&:path_params).flatten.map(&:original_name).to_set
+  end
+
   def description
     description = spec.documentation.description.gsub('"', "'").strip
     description[-1] == '.' ? description : "#{description}."
