@@ -74,7 +74,6 @@ class Parameter
     return @name = 'snapshots_count' if @original_name == :snapshots && spec.type == 'integer'
     return @name = 'document_type' if @original_name == :type && spec.type == 'string'
     return @name = 'sample_type' if @original_name == :type && spec.type == 'enum'
-    return @name = 'sample_type' if @original_name == :type && spec.type == 'enum'
     @name = @original_name.to_s
   end
 

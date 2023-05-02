@@ -49,7 +49,7 @@ class Operation
   end
 
   def with_body?
-    @method == 'POST' || @method == 'PUT'
+    @method.in?(%w[POST PUT DELETE]) && spec.body.present?
   end
 
   def name_prefix
