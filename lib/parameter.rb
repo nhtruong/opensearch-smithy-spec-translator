@@ -34,7 +34,7 @@ class Parameter
 
   def pattern
     return '^([0-9]+)(?:d|h|m|s|ms|micros|nanos)$' if spec.type == 'time'
-    return '^[^_][\\\\d\\\\w-*]*$' if param_type == 'path'
+    return '^(?!_|template|query|field|point|clear|usage|stats|hot|reload|painless)' if param_type == 'path'
     nil
   end
 
