@@ -52,6 +52,10 @@ class Operation
     @method.in?(%w[POST PUT DELETE]) && spec.body.present?
   end
 
+  def delete_with_body?
+    @method == 'DELETE' && spec.body.present?
+  end
+
   def name_prefix
     @name_prefix ||= @group.gsub('.', '_').camelcase
   end

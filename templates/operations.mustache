@@ -23,7 +23,12 @@ use opensearch.openapi#vendorExtensions
 {{#idempotent}}
 @idempotent
 {{/idempotent}}
+{{^delete_with_body}}
 @suppress(["HttpUriConflict"])
+{{/delete_with_body}}
+{{#delete_with_body}}
+@suppress(["HttpUriConflict", "HttpMethodSemantics.UnexpectedPayload"])
+{{/delete_with_body}}
 @http(method: "{{method}}", uri: "{{uri}}")
 @documentation("{{{description}}}")
 operation {{operation_name}} {

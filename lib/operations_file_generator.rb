@@ -30,6 +30,7 @@ class OperationsFileGenerator < BaseGenerator
         operation_group: action.operation_group,
         readonly: operation.method == 'GET',
         idempotent: operation.method.in?(%w[PUT DELETE]),
+        delete_with_body: operation.delete_with_body?,
         operation_name: operation.name,
         input_name: operation.input_name,
         output_name: operation.output_name,
