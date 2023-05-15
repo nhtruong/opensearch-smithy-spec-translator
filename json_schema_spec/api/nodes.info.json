@@ -21,30 +21,8 @@
           "parts":{
             "node_id":{
               "type":"list",
-              "description":"Comma-separated list of node IDs or names to limit the returned information; use `_local` to return information from the node you're connecting to, leave empty to get information from all nodes"
-            }
-          }
-        },
-        {
-          "path":"/_nodes/{metric}",
-          "methods":[
-            "GET"
-          ],
-          "parts":{
-            "metric":{
-              "type":"list",
-              "options":[
-                "settings",
-                "os",
-                "process",
-                "jvm",
-                "thread_pool",
-                "transport",
-                "http",
-                "plugins",
-                "ingest"
-              ],
-              "description":"Comma-separated list of metrics you wish returned. Leave empty to return all."
+              "description":"Comma-separated list of node IDs or names to limit the returned information; use `_local` to return information from the node you're connecting to, leave empty to get information from all nodes",
+              "overload": "metric"
             }
           }
         },
