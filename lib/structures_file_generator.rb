@@ -75,11 +75,13 @@ class StructuresFileGenerator < BaseGenerator
   def extensions(param)
     {}.tap do |hash|
       hash.merge!(param.deprecation_info) if param.unique_deprecation?
+      hash['overloaded-param'] = param.spec.overload
     end.compact.map { |k, v| { key: k, value: v } }
   end
 
   def with_extensions
-    action.query_params.any? { |param| extensions(param).any? } || bulk_body
+    bulk_body || action.query_params.any? { |param| extensions(param).any? } ||
+      action.operations.any? { |operation| operation.path_params&.any? { |param| extensions(param).any? } }
   end
 
   def output_structure
