@@ -66,8 +66,20 @@ class StructuresFileGenerator < BaseGenerator
       description: param.documentation,
       with_default: !param.default.nil?,
       default: param.default_value,
-      unique_deprecation?: param.unique_deprecation?
-    }.merge(param.deprecation_info || {})
+      unique_deprecation?: param.unique_deprecation?,
+      extensions: extensions(param),
+      with_extensions: extensions(param).any?
+    }
+  end
+
+  def extensions(param)
+    {}.tap do |hash|
+      hash.merge!(param.deprecation_info) if param.unique_deprecation?
+    end.compact.map { |k, v| { key: k, value: v } }
+  end
+
+  def with_extensions
+    action.query_params.any? { |param| extensions(param).any? } || bulk_body
   end
 
   def output_structure

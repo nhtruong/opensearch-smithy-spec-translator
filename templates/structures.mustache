@@ -1,9 +1,9 @@
 {{license_header}}
 $version: "2"
 namespace OpenSearch
-{{#bulk_body}}
+{{#with_extensions}}
 use opensearch.openapi#vendorExtensions
-{{/bulk_body}}
+{{/with_extensions}}
 
 @mixin
 structure {{common_query_structure}} {

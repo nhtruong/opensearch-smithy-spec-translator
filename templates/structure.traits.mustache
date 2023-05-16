@@ -6,8 +6,11 @@
 {{/with_default}}
 {{#unique_deprecation?}}
 @deprecated
-@vendorExtensions(
-    "x-deprecation-message": "{{{deprecation_message}}}",
-    "x-version-deprecated": "{{{deprecation_version}}}"
-)
 {{/unique_deprecation?}}
+{{#with_extensions}}
+@vendorExtensions(
+{{#extensions}}
+    "x-{{{key}}}": {{{value}}},
+{{/extensions}}
+)
+{{/with_extensions}}

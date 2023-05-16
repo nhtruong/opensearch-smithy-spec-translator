@@ -196,6 +196,6 @@ class Parameter
   def deprecation_info
     return {} unless @deprecation.is_a? OpenStruct
     { 'deprecation-message': "\"#{@deprecation.description}\"",
-      'version-deprecated': "\"#{@deprecation.version}\"" }
+      'version-deprecated': '"1.0.0"' }
   end
 end

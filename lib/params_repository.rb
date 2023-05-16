@@ -31,6 +31,7 @@ class ParamsRepository
   # @param [Parameter] param
   def add_one(param)
     return if param.unique_description? || param.unique_deprecation? || param.skip_repo?
+    return if param.spec.overload.present?
     repo_id = param.repo_id
     spec = param.spec.deep_dup
     spec.delete_field(:required) unless spec.required.nil?
