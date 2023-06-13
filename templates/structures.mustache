@@ -43,6 +43,9 @@ structure {{structure_name}} with [{{common_query_structure}}] {
     {{/_blank_line}}
 {{/path_params}}
 {{#with_body}}
+    {{#body_required}}
+    @required
+    {{/body_required}}
     @httpPayload
     content: {{common_body_structure}},
 {{/with_body}}

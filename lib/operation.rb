@@ -52,6 +52,10 @@ class Operation
     @method.in?(%w[POST PUT DELETE]) && spec.body.present?
   end
 
+  def body_required?
+    with_body? && spec.body.required
+  end
+
   def delete_with_body?
     @method == 'DELETE' && spec.body.present?
   end

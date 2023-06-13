@@ -51,6 +51,7 @@ class StructuresFileGenerator < BaseGenerator
         structure_name: operation.input_name,
         common_query_structure:,
         with_body: operation.with_body?,
+        body_required: operation.body_required?,
         path_params: operation.path_params&.map do |param|
                        { original_name: param.original_name,
                          smithy_name: param.smithy_name,

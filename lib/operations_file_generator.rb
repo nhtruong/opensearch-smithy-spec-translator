@@ -53,6 +53,7 @@ class OperationsFileGenerator < BaseGenerator
   def deprecation_info(operation)
     return {} unless operation.deprecation.is_a? OpenStruct
     { 'deprecation-message': operation.deprecation.description,
-      'version-deprecated': operation.deprecation.version }
+      'version-deprecated': '1.0',
+      'ignorable': operation.deprecation.ignorable }
   end
 end
