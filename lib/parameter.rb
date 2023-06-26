@@ -158,9 +158,14 @@ class Parameter
   end
 
   def extensions
-    { 'data-type': ("\"#{type}\"" if type == 'time' || (param_type == 'path' && !type.in?(%w[string integer]))),
+    { 'data-type': x_data_type,
       'enum-options': (spec.options if param_type == 'path') }
       .merge(deprecation_info).compact.map { |k, v| { key: k, value: v } }
+  end
+
+  def x_data_type
+    x_type = type == 'list' ? 'array' : type
+    ("\"#{x_type}\"" if type == 'time' || (param_type == 'path' && !type.in?(%w[string integer])))
   end
 
   def options

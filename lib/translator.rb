@@ -108,7 +108,7 @@ class Translator
   end
 
   def dump(relative_path, generator)
-    return if relative_path.in?(EXISTING_PATHS)
+    return if relative_path.start_with? 'common_'
     path = @output.join(relative_path)
     path.parent.mkpath
     path.write generator.render

@@ -33,6 +33,10 @@ class StructuresFileGenerator < BaseGenerator
     action.spec.body&.serialize == 'bulk'
   end
 
+  def body_description
+    action.operations.first.spec.body&.description
+  end
+
   def query_params
     action.query_params.map do |param|
       {

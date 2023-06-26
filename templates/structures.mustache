@@ -27,6 +27,9 @@ structure {{common_query_structure}} {
     "x-serialize": "bulk"
 )
 {{/bulk_body}}
+{{#body_description}}
+@documentation("{{{body_description}}}")
+{{/body_description}}
 structure {{common_body_structure}} {}
 {{/common_body_structure}}
 
